@@ -21,7 +21,7 @@ const SidebarMenu = () => {
             // paddingTop: "30px",
 
             [`&.active`]: {
-              backgroundColor: "#464852",
+              backgroundColor: "#9269FD",
               color: "#b6c8d9",
             },
             ":hover": {
@@ -34,9 +34,12 @@ const SidebarMenu = () => {
         }}
       >
         <MenuItem
+          style={{}}
+          className="bg-[#9269FD] py-1 pb-3 hover:bg-[#2f2f39]"
           icon={<MessageSquareMore size={30} />}
-          component={<Link to="/" />}
+          component={<Link to="/chat" />}
         />
+
         <MenuItem
           icon={<Users size={30} />}
           component={<Link to="/friends" />}
@@ -45,29 +48,26 @@ const SidebarMenu = () => {
           icon={<Star size={30} />}
           component={<Link to="/favourite" />}
         />
-        <div className="row-end-1">
-          <MenuItem
-        className=""
+        <MenuItem
+          className=""
           icon={<Settings size={30} />}
           component={<Link to="/settings" />}
         />
         <MenuItem
-        className=""
-          icon={<UserRoundPen  size={30} />}
+          className=""
+          icon={<UserRoundPen size={30} />}
           component={<Link to="/profile" />}
         />
         <MenuItem
-        className=""
+          className=""
           icon={<FileQuestion size={30} />}
           component={<Link to="/logout" />}
         />
+
         <MenuItem
-        className=""
-          icon={ <LogOut  size={30} />}
+          icon={<LogOut size={30} />}
           component={<Link to="/logout" />}
         />
-        </div>
-        
       </Menu>
     </Sidebar>
   );

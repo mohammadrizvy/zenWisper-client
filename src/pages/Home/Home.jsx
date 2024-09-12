@@ -1,11 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
-// import Lottie from "lottie-react";
-// import hamster from "/public/Aniki-Hamster.json"; // Make sure the file path is correct
-
 const Home = () => {
   return (
-    <div className="text-4xl text-red-800 flex ">
-      <div className="mx-auto h-screen flex flex-col items-center w-[40%] justify-center">
+    <div className="flex items-center mt-40 justify-center  bg-gray-900">
+      <div className="text-center">
         {/* Lottie Animation */}
         {/* <Lottie animationData={hamster} style={{ width: 300, height: 300 }} /> */}
         {/* Alternatively, use an image */}
@@ -14,8 +11,12 @@ const Home = () => {
           src="https://i.imgur.com/wAdNa6U.gif"
           alt="Hamster animation"
         />
-        <h1 className="text text-white font-bold mt-4">
-          Kon'nichiwa! Start chatting
+        <h1 className="text-4xl text-white  font-bold mt-4">
+          Kon'nichiwa!
+        </h1>
+        <p className="text-base mt-4 font-semibold">No chat availabe please</p>
+        <h1 className="text-xl text-white font-bold underline mt-4">
+          Select a chat to start conversation
         </h1>
       </div>
     </div>

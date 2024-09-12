@@ -1,20 +1,38 @@
 import { createBrowserRouter } from "react-router-dom";
-// import Home from "../pages/Home/Home";
-import About from "../pages/About/About";
 import SidebarLayout from "../Layout/SidebarLayout";
-import Home from "../pages/Home/Home"
+import Friends from "../pages/Friends/Friends";
+import ChatList from "../pages/ChatList/ChatList";
+import Favourite from "../pages/Favourite/Favourite";
+import ChatFeed from "../pages/ChatFeed/ChatFeed";
+import About from "../pages/About/About";
+
+// Define your router
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <SidebarLayout/>,
+    element: <SidebarLayout />,
     children: [
       {
-        path: "/",
-        element: <Home></Home>,
+        path: "chat",
+        element: <ChatList />, // Left side content
       },
       {
-        path: "/about",
-        element: <About></About>,
+        path: "friends",
+        element: <Friends />, // Left side content
+        children: [
+          {
+            path: ":id", // Right side content
+            element: <ChatFeed />,
+          },
+        ],
+      },
+      {
+        path: "favourite",
+        element: <Favourite />,
+      },
+      {
+        path: "about",
+        element: <About />,
       },
     ],
   },
