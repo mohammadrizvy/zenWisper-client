@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import Home from "../../pages/Home/Home";
+import { Forward} from "lucide-react";
 
 const ChatFeed = () => {
   const { id } = useParams();
@@ -49,10 +50,13 @@ const ChatFeed = () => {
   };
 
   return (
-    <div className="bg-gray-900 min-h-screen flex flex-col justify-between">
+    <div
+      
+      className="custom-bg min-h-screen flex flex-col justify-between"
+    >
       <div className="p-4">
-        <h2 className="text-xl font-bold mb-4 text-white">Chat with {id}</h2>
-        <div className="space-y-4">
+        <h2 className="text-xl font-bold  mb-4 text-white">Chat with {id}</h2>
+        <div className="space-y-4 chat-text">
           {chats[id]?.map((chat, index) => (
             <div key={index} className="flex flex-col space-y-1">
               <span className="text-gray-400 text-xs">{chat.time}</span>
@@ -69,7 +73,7 @@ const ChatFeed = () => {
                 <div
                   className={`p-2 rounded-lg ${
                     chat.sender === "You"
-                      ? "bg-green-500 text-white self-end"
+                      ? "bg-[#9269FD] text-white self-end"
                       : "bg-gray-700 text-white"
                   }`}
                 >
@@ -85,14 +89,14 @@ const ChatFeed = () => {
         </div>
       </div>
       {/* Chat input at the bottom */}
-      <div className="w-full p-4 bg-gray-800 flex items-center">
+      <div className="w-full gap-4 p-4 bg-gray-800 flex items-center">
         <input
-          className="w-full p-3 rounded-lg bg-gray-700 text-white focus:outline-none"
+          className="w-[90%] chat-text p-3 rounded-lg bg-gray-700 text-white focus:outline-none"
           type="text"
           placeholder="Write a message..."
         />
-        <button className="ml-2 bg-green-500 p-2 rounded-full text-white">
-          Send
+        <button className="ml-2 bg-[#9269FD] btn hover:bg-none p-3 rounded-md text-white">
+          Send <Forward />
         </button>
       </div>
     </div>

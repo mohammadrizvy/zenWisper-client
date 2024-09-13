@@ -66,7 +66,7 @@ const SidebarMenu = () => {
 
         <MenuItem
           icon={<LogOut size={30} />}
-          component={<Link to="/logout" />}
+          component={<Link to="/login" />}
         />
       </Menu>
     </Sidebar>

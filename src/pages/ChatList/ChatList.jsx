@@ -3,7 +3,10 @@ const ChatList = () => {
     return (
       <div className="">
         {/* Chat List */}
-        <h2 className="text-lg font-semibold mb-4">Chats</h2>
+        <div className="">
+
+        <h2 className="text-2xl font-semibold mb-4">Chats</h2>
+        </div>
         {/* Search Input */}
         <input
           type="text"

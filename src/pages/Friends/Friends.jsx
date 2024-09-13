@@ -17,7 +17,7 @@ const Friends = () => {
       />
 
       <ul className="mt-2 space-y-4">
-        {/* {friends.map((friend) => (
+        {friends.map((friend) => (
           <li key={friend.id}>
             <Link to={`/friends/${friend.id}`}>
               <div className="flex items-center space-x-4 p-2 border-b border-gray-700">
@@ -26,7 +26,7 @@ const Friends = () => {
               </div>
             </Link>
           </li>
-        ))} */}
+        ))}
         <div className="flex items-center p-2 bg-gray-800 rounded">
           <img
             src="https://via.placeholder.com/30"
