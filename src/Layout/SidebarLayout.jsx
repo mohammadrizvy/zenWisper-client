@@ -19,7 +19,7 @@ const SidebarLayout = () => {
             
             <img
               className="w-[55%] -mt-7 -mb-10 mx-auto"
-              src="/public/ZenWhisper.png"
+              src="/ZenWhisper.png"
               alt=""
             />
             </Link>

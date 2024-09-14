@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
@@ -9,10 +10,21 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-    // Handle form submission (e.g., authenticate user)
-  };
+   const onSubmit = async (data) => {
+     try {
+       const response = await axios.post(
+         `${import.meta.env.VITE_BACKEND_URL}/login`,
+         data
+       );
+       console.log(response.data); // Success message
+      //  navigate("/login"); // Navigate to login page after successful signup
+     } catch (error) {
+       console.error(
+         "Error signing up:",
+         error.response?.data || error.message
+       );
+     }
+   };
 
   return (
     <div className="flex justify-center custom-bg items-center min-h-screen">

@@ -1,7 +1,8 @@
+import axios from "axios";
 import { useForm } from "react-hook-form";
+import toast, { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 
- 
 const Signup = () => {
   const {
     register,
@@ -9,13 +10,24 @@ const Signup = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-    // Handle form submission (e.g., register the user)
+  const onSubmit = async (data) => {
+    try {
+      console.log(data);
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/signup`,
+        data
+      );
+      console.log(response.data);
+      toast.success("Account created successfully")
+    } catch (error) {
+      console.error("Error signing up:", error.response?.data || error.message);
+      toast.error(`${error.response?.data.message}`);
+    }
   };
 
   return (
     <div className="flex justify-center items-center custom-bg min-h-screen">
+      <Toaster/>
       <div className="flex flex-col mx-auto bg-gray-700  justify-center items-center max-w-md p-6 rounded-md sm:p-10 text-white">
         <div className="mb-8 text-center">
           <h1 className="my-3 text-4xl font-bold">Sign up</h1>
