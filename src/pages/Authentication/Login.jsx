@@ -1,8 +1,8 @@
+/* eslint-disable react/no-unescaped-entities */
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-/* eslint-disable react/no-unescaped-entities */
 const Login = () => {
   const {
     register,
@@ -10,21 +10,26 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-   const onSubmit = async (data) => {
-     try {
-       const response = await axios.post(
-         `${import.meta.env.VITE_BACKEND_URL}/login`,
-         data
-       );
-       console.log(response.data); // Success message
-      //  navigate("/login"); // Navigate to login page after successful signup
-     } catch (error) {
-       console.error(
-         "Error signing up:",
-         error.response?.data || error.message
-       );
-     }
-   };
+  const navigate = useNavigate();
+
+  const onSubmit = async (data) => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/login`,
+        data
+      );
+
+      // Store JWT token in localStorage or sessionStorage
+      localStorage.setItem("token", response.data.token);
+
+      console.log(response.data); // Success message
+
+      // Navigate to a protected route after successful login
+      navigate("/");
+    } catch (error) {
+      console.error("Error logging in:", error.response?.data || error.message);
+    }
+  };
 
   return (
     <div className="flex justify-center custom-bg items-center min-h-screen">
@@ -85,7 +90,7 @@ const Login = () => {
             <div className="pb-4">
               <button
                 type="submit"
-                className="w-full px-8   font-semibold btn rounded-md bg-[#9269FD] text-white"
+                className="w-full px-8 font-semibold btn rounded-md bg-[#9269FD] text-white"
               >
                 Sign in
               </button>

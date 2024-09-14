@@ -7,48 +7,72 @@ import ChatFeed from "../pages/ChatFeed/ChatFeed";
 import About from "../pages/About/About";
 import Login from "../pages/Authentication/Login";
 import Signup from "../pages/Authentication/Signup";
+import PrivateRoute from "./PrivateRoute/PrivateRoute";
 
 // Define your router
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <SidebarLayout />,
+    element: (
+      <PrivateRoute>
+        <SidebarLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "/",
-        element: <ChatList />, // Left side content
+        element: (
+          <PrivateRoute>
+            <ChatList /> {/* Left side content */}
+          </PrivateRoute>
+        ),
       },
       {
         path: "chat",
-        element: <ChatList />, // Left side content
+        element: (
+          <PrivateRoute>
+            <ChatList /> {/* Left side content */}
+          </PrivateRoute>
+        ),
       },
       {
         path: "friends",
-        element: <Friends />, // Left side content
+        element: (
+          <PrivateRoute>
+            <Friends /> {/* Left side content */}
+          </PrivateRoute>
+        ),
         children: [
           {
             path: ":id", // Right side content
-            element: <ChatFeed />,
+            element: (
+              <PrivateRoute>
+                <ChatFeed /> {/* Protect the chat feed */}
+              </PrivateRoute>
+            ),
           },
         ],
       },
       {
         path: "favourite",
-        element: <Favourite />,
+        element: (
+          <PrivateRoute>
+            <Favourite /> {/* Protect favourite */}
+          </PrivateRoute>
+        ),
       },
       {
         path: "about",
-        element: <About />,
+        element: <About />, // Public route
       },
-      
     ],
   },
   {
     path: "login",
-    element: <Login />,
+    element: <Login />, // Public route
   },
   {
     path: "signup",
-    element: <Signup />,
+    element: <Signup />, // Public route
   },
 ]);

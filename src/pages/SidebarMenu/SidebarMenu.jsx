@@ -3,6 +3,11 @@ import { Link } from "react-router-dom";
 import { FileQuestion, LogOut, MessageSquareMore, Settings, Star, UserRoundPen, Users } from "lucide-react"; // Import only necessary icons
 
 const SidebarMenu = () => {
+  
+  const handleLogOut = () => {
+    localStorage.removeItem("token");
+    window.location.reload(); 
+  }
 
   return (
     <Sidebar
@@ -65,8 +70,9 @@ const SidebarMenu = () => {
         />
 
         <MenuItem
+        onClick={handleLogOut}
           icon={<LogOut size={30} />}
-          component={<Link to="/login" />}
+          
         />
       </Menu>
     </Sidebar>
