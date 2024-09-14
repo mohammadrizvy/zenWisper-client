@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import toast, { Toaster } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -22,7 +23,13 @@ const Login = () => {
       // Store JWT token in localStorage or sessionStorage
       localStorage.setItem("token", response.data.token);
 
-      console.log(response.data); // Success message
+      toast.success("Login success")
+      console.log(response.data);
+
+     localStorage.setItem("username", response.data.userInfo.username);
+     localStorage.setItem("email", response.data.userInfo.email);
+     
+ // Success message
 
       // Navigate to a protected route after successful login
       navigate("/");
@@ -33,6 +40,7 @@ const Login = () => {
 
   return (
     <div className="flex justify-center custom-bg items-center min-h-screen">
+      <Toaster/>
       <div className="flex flex-col mx-auto bg-gray-700 justify-center items-center max-w-md p-6 rounded-md sm:p-10 text-white">
         <div className="mb-8 text-center">
           <h1 className="my-3 text-4xl font-bold">Log in</h1>
