@@ -1,16 +1,23 @@
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
-import { FileQuestion, LogOut, MessageSquareMore, Settings, Star, UserRoundPen, Users } from "lucide-react"; // Import only necessary icons
+import {
+  FileQuestion,
+  LogOut,
+  MessageSquareMore,
+  Settings,
+  Star,
+  Users,
+} from "lucide-react"; // Import only necessary icons
+import { FaRegUserCircle } from "react-icons/fa";
 
 const SidebarMenu = () => {
-  
   const handleLogOut = () => {
     localStorage.removeItem("token");
-    window.location.reload(); 
-  }
+    window.location.reload();
+  };
 
-  const username  = localStorage.getItem("username"); 
-  const email = localStorage.getItem("email"); 
+  const username = localStorage.getItem("username");
+  const email = localStorage.getItem("email");
 
   return (
     <>
@@ -57,14 +64,10 @@ const SidebarMenu = () => {
             icon={<Star size={30} />}
             component={<Link to="/favourite" />}
           />
+          <MenuItem icon={<Settings size={30} />} />
           <MenuItem
-            onClick={() => document.getElementById("setting").showModal()}
-            icon={<Settings size={30} />}
-          />
-          <MenuItem
-            className=""
-            icon={<UserRoundPen size={30} />}
-            component={<Link to="/profile" />}
+            onClick={() => document.getElementById("profile").showModal()}
+            icon={<FaRegUserCircle size={30} />}
           />
           <MenuItem
             className=""
@@ -76,21 +79,95 @@ const SidebarMenu = () => {
         </Menu>
       </Sidebar>
 
-      <dialog id="setting" className="modal">
-        <div className="modal-box w-full">
-          <h3 className="font-bold text-lg">Hello!</h3>
-          <p className="py-4">{username}</p>
-          <p className="py-4">{email}</p>
-          <p className="py-4">Press ESC key or click outside to close</p>
+      <dialog id="profile" className="modal">
+        <div className="modal-box w-full max-w-lg p-6 bg-gray-800 rounded-lg">
+          {/* Profile Image Section */}
+          <div className="flex flex-col items-center justify-center gap-4">
+            <div className="relative">
+              {/* Profile Image */}
+              <img
+                src={ "/default-avatar.png"} // Use default if no image
+                alt="Profile"
+                className="w-32 h-32 rounded-full object-cover shadow-lg border-4 border-purple-500"
+              />
+              {/* Edit Image Button */}
+              <label
+                htmlFor="profileImage"
+                className="absolute bottom-2 right-2 bg-purple-500 text-white p-2 rounded-full cursor-pointer"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+              </label>
+              <input
+                id="profileImage"
+                type="file"
+                className="hidden"
+                // onChange={handleImageChange} // Handle image change
+              />
+            </div>
+            <h3 className="font-bold text-2xl text-white">Edit Profile</h3>
+          </div>
+
+          {/* Form to Edit Username and Email */}
+          <form className="mt-6 space-y-6">
+            {/* Username Field */}
+            <div className="form-control">
+              <label className="label text-white">Username</label>
+              <input
+                type="text"
+                placeholder="Enter username"
+                className="input input-bordered w-full text-gray-800"
+                value={username}
+                // onChange={(e) => setUsername(e.target.value)} // Handle username change
+              />
+            </div>
+
+            {/* Email Field */}
+            <div className="form-control">
+              <label className="label text-white">Email</label>
+              <input
+                type="email"
+                placeholder="Enter email"
+                className="input input-bordered w-full text-gray-800"
+                value={email}
+                // onChange={(e) => setEmail(e.target.value)} // Handle email change
+              />
+            </div>
+
+            {/* Save Changes Button */}
+            <div className="modal-action justify-end">
+              <button
+                type="submit"
+                className="btn bg-purple-500 hover:bg-purple-700 text-white"
+                // onClick={handleSaveChanges}
+              >
+                Save Changes
+              </button>
+            </div>
+          </form>
+          <p className="py-4 text-gray-400 text-center">
+            Press ESC or click outside to close
+          </p>
         </div>
+
         <form method="dialog" className="modal-backdrop">
-          <button>close</button>
+          <button className="btn btn-outline">Close</button>
         </form>
       </dialog>
     </>
   );
-
-  
 };
 
 export default SidebarMenu;
