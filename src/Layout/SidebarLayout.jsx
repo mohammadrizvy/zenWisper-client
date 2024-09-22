@@ -32,6 +32,7 @@ const SidebarLayout = () => {
 
         {/* Dynamic Content Area */}
         <div   className="w-4/5">
+        {/* <Navbar/> */}
           <ChatFeed />
         </div>
       </div>

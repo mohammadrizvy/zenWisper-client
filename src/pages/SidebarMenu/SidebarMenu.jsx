@@ -8,7 +8,7 @@ import {
   Star,
   Users,
 } from "lucide-react"; // Import only necessary icons
-import { FaRegUserCircle } from "react-icons/fa";
+import { FaDoorOpen, FaRegUserCircle } from "react-icons/fa";
 
 const SidebarMenu = () => {
   const handleLogOut = () => {
@@ -57,6 +57,12 @@ const SidebarMenu = () => {
           />
 
           <MenuItem
+            style={{}}
+            icon={<FaDoorOpen size={30} />}
+            component={<Link to="/room" />}
+          />
+
+          <MenuItem
             icon={<Users size={30} />}
             component={<Link to="/friends" />}
           />
@@ -86,7 +92,7 @@ const SidebarMenu = () => {
             <div className="relative">
               {/* Profile Image */}
               <img
-                src={ "/default-avatar.png"} // Use default if no image
+                src={"/default-avatar.png"} // Use default if no image
                 alt="Profile"
                 className="w-32 h-32 rounded-full object-cover shadow-lg border-4 border-purple-500"
               />
@@ -128,7 +134,7 @@ const SidebarMenu = () => {
               <input
                 type="text"
                 placeholder="Enter username"
-                className="input input-bordered w-full text-gray-800"
+                className="input input-bordered chat-text w-full text-white"
                 value={username}
                 // onChange={(e) => setUsername(e.target.value)} // Handle username change
               />
@@ -140,13 +146,13 @@ const SidebarMenu = () => {
               <input
                 type="email"
                 placeholder="Enter email"
-                className="input input-bordered w-full text-gray-800"
+                className="input input-bordered w-full  text-white"
                 value={email}
                 // onChange={(e) => setEmail(e.target.value)} // Handle email change
               />
             </div>
 
-            {/* Save Changes Button */}
+            {/* Save and Close Buttons */}
             <div className="modal-action justify-end">
               <button
                 type="submit"
@@ -155,16 +161,15 @@ const SidebarMenu = () => {
               >
                 Save Changes
               </button>
+              <button formMethod="dialog" className="btn btn-outline">
+                Close
+              </button>
             </div>
           </form>
           <p className="py-4 text-gray-400 text-center">
             Press ESC or click outside to close
           </p>
         </div>
-
-        <form method="dialog" className="modal-backdrop">
-          <button className="btn btn-outline">Close</button>
-        </form>
       </dialog>
     </>
   );

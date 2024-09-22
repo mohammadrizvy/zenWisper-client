@@ -1,14 +1,17 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const {
+    reset,
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const navigate = useNavigate(); 
 
   const onSubmit = async (data) => {
     try {
@@ -19,6 +22,8 @@ const Signup = () => {
       );
       console.log(response.data);
       toast.success("Account created successfully")
+      navigate("/")
+      reset(); 
     } catch (error) {
       console.error("Error signing up:", error.response?.data || error.message);
       toast.error(`${error.response?.data.message}`);

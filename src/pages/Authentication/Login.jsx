@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const {
+    reset,
     register,
     handleSubmit,
     formState: { errors },
@@ -25,6 +26,7 @@ const Login = () => {
 
       toast.success("Login success")
       console.log(response.data);
+      reset();
 
      localStorage.setItem("username", response.data.userInfo.username);
      localStorage.setItem("email", response.data.userInfo.email);
@@ -35,6 +37,7 @@ const Login = () => {
       navigate("/");
     } catch (error) {
       console.error("Error logging in:", error.response?.data || error.message);
+      toast.error(error.message)
     }
   };
 

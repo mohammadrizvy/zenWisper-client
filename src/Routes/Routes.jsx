@@ -8,6 +8,7 @@ import About from "../pages/About/About";
 import Login from "../pages/Authentication/Login";
 import Signup from "../pages/Authentication/Signup";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
+import Room from "../pages/Room/Room";
 
 // Define your router
 export const router = createBrowserRouter([
@@ -34,6 +35,26 @@ export const router = createBrowserRouter([
             <ChatList /> {/* Left side content */}
           </PrivateRoute>
         ),
+        children: [
+          {
+            path: ":id",
+            element: <ChatFeed></ChatFeed>,
+          },
+        ],
+      },
+      {
+        path: "room",
+        element: (
+          <PrivateRoute>
+            <Room></Room> {/* Left side content */}
+          </PrivateRoute>
+        ),
+        children: [
+          {
+            path: ":roomId",
+            element: <ChatFeed></ChatFeed>,
+          },
+        ],
       },
       {
         path: "friends",
