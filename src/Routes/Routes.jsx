@@ -3,14 +3,15 @@ import SidebarLayout from "../Layout/SidebarLayout";
 import Friends from "../pages/Friends/Friends";
 import ChatList from "../pages/ChatList/ChatList";
 import Favourite from "../pages/Favourite/Favourite";
-import ChatFeed from "../pages/ChatFeed/ChatFeed";
 import About from "../pages/About/About";
 import Login from "../pages/Authentication/Login";
 import Signup from "../pages/Authentication/Signup";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import Room from "../pages/Room/Room";
+import RoomChatFeed from "../pages/ChatFeed/RoomChatFeed/RoomChatFeed";
+import FriendChatFeed from "../pages/ChatFeed/FriendChatFeed/FriendChatFeed";
+import ChatFeed from "../pages/ChatFeed/ChatFeed/ChatFeed";
 
-// Define your router
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -24,7 +25,7 @@ export const router = createBrowserRouter([
         path: "/",
         element: (
           <PrivateRoute>
-            <ChatList /> {/* Left side content */}
+            <ChatList /> {/* Default landing page */}
           </PrivateRoute>
         ),
       },
@@ -32,13 +33,13 @@ export const router = createBrowserRouter([
         path: "chat",
         element: (
           <PrivateRoute>
-            <ChatList /> {/* Left side content */}
+            <ChatList /> {/* Chat List page */}
           </PrivateRoute>
         ),
         children: [
           {
-            path: ":id",
-            element: <ChatFeed></ChatFeed>,
+            path: ":id", // Dynamic chat feed based on ID
+            element: <ChatFeed />,
           },
         ],
       },
@@ -46,13 +47,13 @@ export const router = createBrowserRouter([
         path: "room",
         element: (
           <PrivateRoute>
-            <Room></Room> {/* Left side content */}
+            <Room /> {/* Room List page */}
           </PrivateRoute>
         ),
         children: [
           {
-            path: ":roomId",
-            element: <ChatFeed></ChatFeed>,
+            path: ":roomId", // Room chat feed with dynamic room ID
+            element: <RoomChatFeed />,
           },
         ],
       },
@@ -60,15 +61,15 @@ export const router = createBrowserRouter([
         path: "friends",
         element: (
           <PrivateRoute>
-            <Friends /> {/* Left side content */}
+            <Friends /> {/* Friends List page */}
           </PrivateRoute>
         ),
         children: [
           {
-            path: ":id", // Right side content
+            path: ":friendId", // Friend chat feed with dynamic friend ID
             element: (
               <PrivateRoute>
-                <ChatFeed /> {/* Protect the chat feed */}
+                <FriendChatFeed /> {/* Friend chat feed */}
               </PrivateRoute>
             ),
           },
@@ -78,22 +79,22 @@ export const router = createBrowserRouter([
         path: "favourite",
         element: (
           <PrivateRoute>
-            <Favourite /> {/* Protect favourite */}
+            <Favourite /> {/* Favourite section */}
           </PrivateRoute>
         ),
       },
       {
         path: "about",
-        element: <About />, // Public route
+        element: <About />, // Public about page
       },
     ],
   },
   {
     path: "login",
-    element: <Login />, // Public route
+    element: <Login />, // Public login page
   },
   {
     path: "signup",
-    element: <Signup />, // Public route
+    element: <Signup />, // Public signup page
   },
 ]);

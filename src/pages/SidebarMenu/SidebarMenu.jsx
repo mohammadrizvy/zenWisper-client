@@ -1,14 +1,14 @@
-import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 import {
-  FileQuestion,
-  LogOut,
-  MessageSquareMore,
-  Settings,
-  Star,
-  Users,
-} from "lucide-react"; // Import only necessary icons
-import { FaDoorOpen, FaRegUserCircle } from "react-icons/fa";
+  FaCog,
+  FaDoorOpen,
+  FaFileAlt,
+  FaShare,
+  FaStar,
+  FaUserCog,
+  FaUsers,
+} from "react-icons/fa";
+import { FaMessage } from "react-icons/fa6";
 
 const SidebarMenu = () => {
   const handleLogOut = () => {
@@ -21,69 +21,89 @@ const SidebarMenu = () => {
 
   return (
     <>
-      <Sidebar
-        breakPoint="lg"
-        height="100vh" // Corrected to use full viewport height
-        width="80px"
-        backgroundColor="#2f2f39"
-      >
-        <Menu
-          menuItemStyles={{
-            button: {
-              marginTop: "20px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              // paddingTop: "30px",
+      <div className="h-screen hidden lg:flex flex-col justify-between px-3 bg-gray-800 text-white">
+        <nav className="flex-1 px-4">
+          <ul className="space-y-10">
+            <li>
+              <Link
+                to="/chat"
+                data-tip="Chat"
+                className="flex tooltip tooltip-right mt-10 items-center space-x-3 text-gray-300 hover:text-white"
+              >
+                <FaMessage className="w-8 h-8" />
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/room"
+                data-tip="Room"
+                className="flex tooltip tooltip-right items-center space-x-3 text-gray-300 hover:text-white"
+              >
+                <FaDoorOpen className="w-8 h-8" />
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/friends"
+                data-tip="Friends"
+                className="flex tooltip tooltip-right items-center space-x-3 text-gray-300 hover:text-white"
+              >
+                <FaUsers className="w-8 h-8" />
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/"
+                data-tip="Favourites"
+                className="flex tooltip tooltip-right items-center space-x-3 text-gray-300 hover:text-white"
+              >
+                <FaStar className="w-8 h-8" />
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/"
+                data-tip="Settings"
+                className="flex tooltip tooltip-right items-center space-x-3 text-gray-300 hover:text-white"
+              >
+                <FaCog className="w-8 h-8" />
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/faq"
+                data-tip="FAQ"
+                className="flex tooltip tooltip-right items-center space-x-3 text-gray-300 hover:text-white"
+              >
+                <FaFileAlt className="w-8 h-8" />
+              </Link>
+            </li>
+          </ul>
+        </nav>
 
-              [`&.active`]: {
-                backgroundColor: "#9269FD",
-                color: "#b6c8d9",
-              },
-              ":hover": {
-                backgroundColor: "#3a3d47", // Hover state background color
-              },
-            },
-            icon: {
-              margin: "0 auto",
-            },
-          }}
-        >
-          <MenuItem
-            style={{}}
-            className="bg-[#9269FD] py-1 pb-3 hover:bg-[#2f2f39]"
-            icon={<MessageSquareMore size={30} />}
-            component={<Link to="/chat" />}
-          />
-
-          <MenuItem
-            style={{}}
-            icon={<FaDoorOpen size={30} />}
-            component={<Link to="/room" />}
-          />
-
-          <MenuItem
-            icon={<Users size={30} />}
-            component={<Link to="/friends" />}
-          />
-          <MenuItem
-            icon={<Star size={30} />}
-            component={<Link to="/favourite" />}
-          />
-          <MenuItem icon={<Settings size={30} />} />
-          <MenuItem
-            onClick={() => document.getElementById("profile").showModal()}
-            icon={<FaRegUserCircle size={30} />}
-          />
-          <MenuItem
-            className=""
-            icon={<FileQuestion size={30} />}
-            component={<Link to="/logout" />}
-          />
-
-          <MenuItem onClick={handleLogOut} icon={<LogOut size={30} />} />
-        </Menu>
-      </Sidebar>
+        <div className="mb-10 mx-auto">
+          <ul className="space-y-10">
+            <li>
+              <p
+                onClick={() => document.getElementById("profile").showModal()}
+                data-tip="Profile"
+                className="flex tooltip tooltip-right items-center cursor-pointer space-x-3 text-gray-300 hover:text-white"
+              >
+                <FaUserCog className="w-8 h-8" />
+              </p>
+            </li>
+            <li>
+              <p
+                onClick={handleLogOut}
+                data-tip="Logout"
+                className="flex tooltip tooltip-right cursor-pointer items-center space-x-3 text-gray-300 hover:text-white"
+              >
+                <FaShare className="w-8 h-8 rotate-180" />
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
 
       <dialog id="profile" className="modal">
         <div className="modal-box w-full max-w-lg p-6 bg-gray-800 rounded-lg">
@@ -92,7 +112,7 @@ const SidebarMenu = () => {
             <div className="relative">
               {/* Profile Image */}
               <img
-                src={"/default-avatar.png"} // Use default if no image
+                src="https://cdn.hero.page/pfp/81c2b3b4-bc9b-4286-91fe-a974f3ca6ae5-mysterious-purple-haired-boy-stunning-purple-anime-pfp-boys-1.png" // Use default if no image
                 alt="Profile"
                 className="w-32 h-32 rounded-full object-cover shadow-lg border-4 border-purple-500"
               />
@@ -116,12 +136,7 @@ const SidebarMenu = () => {
                   />
                 </svg>
               </label>
-              <input
-                id="profileImage"
-                type="file"
-                className="hidden"
-                // onChange={handleImageChange} // Handle image change
-              />
+              <input id="profileImage" type="file" className="hidden" />
             </div>
             <h3 className="font-bold text-2xl text-white">Edit Profile</h3>
           </div>
@@ -134,9 +149,8 @@ const SidebarMenu = () => {
               <input
                 type="text"
                 placeholder="Enter username"
-                className="input input-bordered chat-text w-full text-white"
+                className="input input-bordered w-full text-white"
                 value={username}
-                // onChange={(e) => setUsername(e.target.value)} // Handle username change
               />
             </div>
 
@@ -146,9 +160,8 @@ const SidebarMenu = () => {
               <input
                 type="email"
                 placeholder="Enter email"
-                className="input input-bordered w-full  text-white"
+                className="input input-bordered w-full text-white"
                 value={email}
-                // onChange={(e) => setEmail(e.target.value)} // Handle email change
               />
             </div>
 
@@ -157,7 +170,6 @@ const SidebarMenu = () => {
               <button
                 type="submit"
                 className="btn bg-purple-500 hover:bg-purple-700 text-white"
-                // onClick={handleSaveChanges}
               >
                 Save Changes
               </button>

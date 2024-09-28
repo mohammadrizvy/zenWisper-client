@@ -1,57 +1,29 @@
-import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useState } from "react";
 import { Forward } from "lucide-react";
-import io from "socket.io-client";
-import { useLocation, useParams } from "react-router-dom";
 
-const socket = io.connect("http://localhost:5000/");
-
-const ChatFeed = () => {
-  const { roomId } = useParams();
-  const location = useLocation();
-  const username = localStorage.getItem("username");
-  const { roomName } = location.state || {};
+const FriendChatFeed = () => {
+  const { friendId } = useParams(); // Get friend ID from URL params
+  const [messages, setMessages] = useState([]);
   const [currentMessage, setCurrentMessage] = useState("");
-  const [messages, setMessages] = useState([]); // Store chat messages
 
-  const sendGroupMessage = async () => {
-    if (currentMessage !== "") {
-      const groupMessageData = {
-        roomId: roomId,
-        room: roomName,
-        author: username,
+  const sendGroupMessage = () => {
+    if (currentMessage.trim() !== "") {
+      const newMessage = {
+        author: "You",
         message: currentMessage,
-        time:
-          new Date(Date.now()).getHours() +
-          ":" +
-          new Date(Date.now()).getMinutes(),
+        time: new Date().toLocaleTimeString(),
       };
-
-      await socket.emit("send_message", groupMessageData);
+      setMessages([...messages, newMessage]);
       setCurrentMessage("");
     }
   };
-
-  useEffect(() => {
-    if (roomId) {
-      socket.emit("join_room", roomId);
-    }
-
-    socket.on("receive_group_message", (data) => {
-      setMessages((prevMessages) => [...prevMessages, data]);
-    });
-
-    return () => {
-      socket.off("receive_group_message");
-    };
-  }, [roomId]);
 
   return (
     <div className="custom-bg min-h-screen flex flex-col justify-between">
       <div className="p-2">
         <h2 className="text-xl font-bold mb-4 mt-4 bg-gray-800 px-5 py-2 w-2/6 rounded-lg text-center mx-auto text-white">
-          Room Name: {roomName}
-          <br />
-          Room Chat ID: {roomId}
+          Chat with Friend ID: {friendId} {/* Use friendId here */}
         </h2>
       </div>
 
@@ -61,12 +33,12 @@ const ChatFeed = () => {
           <div
             key={index}
             className={`chat ${
-              msg.author === username ? "chat-end" : "chat-start"
+              msg.author === "You" ? "chat-end" : "chat-start"
             }`}
           >
             <div className="chat-bubble">
               <p className="font-semibold">
-                {msg.author === username ? "You" : msg.author}{" "}
+                {msg.author}{" "}
                 <span className="text-xs text-gray-400 ml-2">({msg.time})</span>
               </p>
               <p className="mt-1">{msg.message}</p>
@@ -95,4 +67,4 @@ const ChatFeed = () => {
   );
 };
 
-export default ChatFeed;
+export default FriendChatFeed;

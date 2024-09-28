@@ -9,10 +9,11 @@ const Room = () => {
   const [roomName, setRoomName] = useState(""); // Initialize as empty strings
   const [roomId, setRoomId] = useState("");
   const navigate = useNavigate();
+  const username = localStorage.getItem("username");
 
  const joinTheRoom = () => {
    if (roomName !== "" && roomId !== "") {
-     socket.emit("join_room", roomId);
+     socket.emit("join_room", roomId , username );
      navigate(`/room/${roomId}`, {
        state: {
          roomName,
