@@ -102,7 +102,7 @@ const RoomChatFeed = () => {
             value={currentMessage}
             onChange={(event) => setCurrentMessage(event.target.value)}
           />) : (
-            <h1 className="w-[90%] text-center">Please join room to continue</h1>
+            <h1 className="mx-auto p-5 rounded-md text-center bg-gray-900 ">Please join room to continue !</h1>
           )
           }
           
