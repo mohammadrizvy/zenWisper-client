@@ -31,7 +31,8 @@ const RoomChatFeed = () => {
     };
   }, [roomId]);
 
-  const sendGroupMessage = async () => {
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
     if (currentMessage !== "" && socket) {
       const groupMessageData = {
         roomId: roomId,
@@ -44,7 +45,7 @@ const RoomChatFeed = () => {
           new Date(Date.now()).getMinutes(),
       };
 
-      await socket.emit("send_message", groupMessageData);
+      await socket.emit("send_group_message", groupMessageData);
       setCurrentMessage("");
     }
   };
@@ -79,7 +80,9 @@ const RoomChatFeed = () => {
       </div>
 
       {/* Input Section */}
-      <div className="w-full gap-4 p-4 bg-gray-800 flex items-center">
+      <form onSubmit={handleOnSubmit}>
+         <div className="w-full gap-4 p-4 bg-gray-800 flex items-center">
+       
         <input
           className="w-[90%] chat-text p-3 rounded-lg bg-gray-700 text-white focus:outline-none"
           type="text"
@@ -88,12 +91,14 @@ const RoomChatFeed = () => {
           onChange={(event) => setCurrentMessage(event.target.value)}
         />
         <button
-          onClick={sendGroupMessage}
+        type="submit"
           className="ml-2 bg-[#9269FD] btn hover:bg-none p-3 rounded-md text-white"
         >
           Send <Forward />
         </button>
       </div>
+      </form>
+     
     </div>
   );
 };
