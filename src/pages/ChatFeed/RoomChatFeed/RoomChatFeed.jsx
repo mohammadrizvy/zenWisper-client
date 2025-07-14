@@ -21,7 +21,7 @@ const RoomChatFeed = () => {
       newSocket.emit("join_room", roomId);
     }
 
-    newSocket.on("receive_group_message", (data) => {
+    newSocket.on("receive_room_message", (data) => {
       setMessages((prevMessages) => [...prevMessages, data]);
     });
 
@@ -45,18 +45,29 @@ const RoomChatFeed = () => {
           new Date(Date.now()).getMinutes(),
       };
 
-      await socket.emit("send_group_message", groupMessageData);
+      await socket.emit("send_room_message", groupMessageData);
       setCurrentMessage("");
     }
   };
 
+  console.log(messages);
+
   return (
     <div className="custom-bg min-h-screen flex flex-col justify-between">
       <div className="p-2">
-        <h2 className="text-xl font-bold mb-4 mt-4 bg-gray-800 px-5 py-2 w-2/6 rounded-lg text-center mx-auto text-white">
-          Room Name: {roomName || "Unknown Room"} <br />
-          Room Chat ID: {roomId}
-        </h2>
+        {roomId ? (
+          <h2 className="text-xl font-bold mb-4 mt-4 bg-gray-800 px-5 py-2 w-2/6 rounded-lg text-center mx-auto text-white">
+            Room Name: {roomName || "Unknown Room"} <br />
+            Room Chat ID: {roomId}
+          </h2>
+        ) : (
+          <h2 className="text-xl font-semibold mb-4 mt-4 bg-yellow-600/90 px-6 py-4 w-3/5 rounded-xl text-center mx-auto text-white shadow-md">
+            ⚠️ Please enter your{" "}
+            <span className="underline font-bold">Room Name</span> and{" "}
+            <span className="underline font-bold">Room ID</span> to join your
+            chat room.
+          </h2>
+        )}
       </div>
 
       {/* Chat Feed */}
@@ -81,24 +92,29 @@ const RoomChatFeed = () => {
 
       {/* Input Section */}
       <form onSubmit={handleOnSubmit}>
-         <div className="w-full gap-4 p-4 bg-gray-800 flex items-center">
-       
-        <input
-          className="w-[90%] chat-text p-3 rounded-lg bg-gray-700 text-white focus:outline-none"
-          type="text"
-          placeholder="Write a message..."
-          value={currentMessage}
-          onChange={(event) => setCurrentMessage(event.target.value)}
-        />
-        <button
-        type="submit"
-          className="ml-2 bg-[#9269FD] btn hover:bg-none p-3 rounded-md text-white"
-        >
-          Send <Forward />
-        </button>
-      </div>
+        <div className="w-full gap-4 p-4 bg-gray-800 flex items-center">
+          {
+            roomId ? (<input
+            className="w-[90%] chat-text p-3 rounded-lg bg-gray-700 text-white focus:outline-none"
+            disabled={!roomId}
+            type="text"
+            placeholder="Write a message..."
+            value={currentMessage}
+            onChange={(event) => setCurrentMessage(event.target.value)}
+          />) : (
+            <h1 className="w-[90%] text-center">Please join room to continue</h1>
+          )
+          }
+          
+          <button
+            type="submit"
+            disabled={!roomId}
+            className="ml-2 bg-[#9269FD] btn hover:bg-none p-3 rounded-md text-white disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Send <Forward />
+          </button>
+        </div>
       </form>
-     
     </div>
   );
 };
