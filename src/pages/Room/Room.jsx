@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import io from "socket.io-client";
-import { LogOut, Copy, ArrowRight, Users } from "lucide-react";
+import { LogOut, Copy, ArrowRight, Users, Plus } from "lucide-react";
 
 const socket = io.connect("http://localhost:5000/");
 
@@ -12,6 +12,7 @@ const Room = () => {
   const [currentRoom, setCurrentRoom] = useState(null);
   const [recentRooms, setRecentRooms] = useState([]);
   const [onlineUsers, setOnlineUsers] = useState([]);
+  const [isCreating, setIsCreating] = useState(false);
   const navigate = useNavigate();
   const username = localStorage.getItem("username");
 
@@ -57,6 +58,11 @@ const Room = () => {
     localStorage.setItem("recentRooms", JSON.stringify(updatedRooms));
   };
 
+  // Generate a random room ID
+  const generateRoomId = () => {
+    return Math.random().toString(36).substring(2, 10);
+  };
+
   const joinTheRoom = () => {
     if (roomName.trim() !== "" && roomId.trim() !== "") {
       // Save to localStorage
@@ -88,6 +94,49 @@ const Room = () => {
       toast.success(`Successfully joined the room: ${roomName}`);
     } else {
       toast.error("Room Name and Room ID are required!");
+    }
+  };
+
+  const createNewRoom = () => {
+    if (roomName.trim() !== "") {
+      // Generate a unique room ID if not provided
+      const newRoomId = roomId.trim() !== "" ? roomId : generateRoomId();
+      
+      // Save to localStorage
+      localStorage.setItem("currentRoom", newRoomId);
+      localStorage.setItem("currentRoomName", roomName);
+      
+      // Connect socket and create room
+      socket.emit("create_room", newRoomId, username);
+      socket.emit("join_room", newRoomId, username);
+      
+      // Update current room state
+      setCurrentRoom({
+        id: newRoomId,
+        name: roomName
+      });
+      
+      // Add to recent rooms
+      addToRecentRooms({
+        id: newRoomId,
+        name: roomName
+      });
+      
+      // Navigate to chat
+      navigate(`/room/${newRoomId}`, {
+        state: {
+          roomName,
+        },
+      });
+      
+      toast.success(`Created and joined new room: ${roomName}`);
+      
+      // Reset the form
+      setRoomName("");
+      setRoomId("");
+      setIsCreating(false);
+    } else {
+      toast.error("Room Name is required!");
     }
   };
   
@@ -128,7 +177,7 @@ const Room = () => {
       setCurrentRoom(null);
       setOnlineUsers([]);
       
-      navigate("/room")
+      navigate("/room");
       toast.success(`Left room: ${currentRoom.name}`);
     }
   };
@@ -150,8 +199,15 @@ const Room = () => {
     }
   };
 
+  const toggleMode = () => {
+    setIsCreating(!isCreating);
+    // Clear fields when switching modes
+    setRoomId("");
+    setRoomName("");
+  };
+
   return (
-    <div className="een flex items-center justify-center bg-gray-900 py-8">
+    <div className=" flex items-center justify-center bg-gray-900 py-8">
       <Toaster position="top-right" />
       
       <div className="p-8 shadow-lg w-full max-w-md bg-gray-800 rounded-lg">
@@ -247,30 +303,72 @@ const Room = () => {
         ) : (
           // Not in a room view
           <>
+            {/* Toggle between Join and Create */}
+            <div className="flex mb-6 bg-gray-700 p-1 rounded-lg">
+              <button
+                onClick={() => setIsCreating(false)}
+                className={`flex-1 py-2 rounded-md transition ${
+                  !isCreating 
+                    ? "bg-[#9269FD] text-white" 
+                    : "bg-transparent text-gray-300 hover:text-white"
+                }`}
+              >
+                Join a Room
+              </button>
+              <button
+                onClick={() => setIsCreating(true)}
+                className={`flex-1 py-2 rounded-md transition ${
+                  isCreating 
+                    ? "bg-[#9269FD] text-white" 
+                    : "bg-transparent text-gray-300 hover:text-white"
+                }`}
+              >
+                Create a Room
+              </button>
+            </div>
+
             <h1 className="text-3xl text-white font-bold text-center mb-6">
-              Join A Room
+              {isCreating ? "Create a New Room" : "Join a Room"}
             </h1>
 
             <div className="space-y-4">
               <input
+                value={roomName}
                 onChange={(event) => setRoomName(event.target.value)}
                 type="text"
                 placeholder="Room Name"
                 className="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#9269FD]"
               />
 
-              <input
-                onChange={(event) => setRoomId(event.target.value)}
-                type="text"
-                placeholder="Room ID"
-                className="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#9269FD]"
-              />
+              {isCreating ? (
+                <input
+                  value={roomId}
+                  onChange={(event) => setRoomId(event.target.value)}
+                  type="text"
+                  placeholder="Room ID (optional - will be generated if empty)"
+                  className="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#9269FD]"
+                />
+              ) : (
+                <input
+                  value={roomId}
+                  onChange={(event) => setRoomId(event.target.value)}
+                  type="text"
+                  placeholder="Room ID"
+                  className="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#9269FD]"
+                />
+              )}
 
               <button
-                onClick={joinTheRoom}
-                className="w-full bg-[#9269FD] hover:bg-purple-500 text-white p-3 rounded-lg transition"
+                onClick={isCreating ? createNewRoom : joinTheRoom}
+                className="w-full bg-[#9269FD] hover:bg-purple-500 text-white p-3 rounded-lg transition flex items-center justify-center gap-2"
               >
-                Join Room
+                {isCreating ? (
+                  <>
+                    <Plus size={18} /> Create Room
+                  </>
+                ) : (
+                  "Join Room"
+                )}
               </button>
               
               {/* Recent Rooms */}

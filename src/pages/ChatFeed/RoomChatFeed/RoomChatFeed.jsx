@@ -14,13 +14,13 @@ const RoomChatFeed = () => {
   const [socket, setSocket] = useState(null);
   const messagesEndRef = useRef(null);
   const queryClient = useQueryClient();
-  
+
   // Use React Query hook to fetch messages
   const { isPending, messages = [], isError } = useRoomMessage(roomId);
-  
+
   // Local state to track messages (combines initial data + socket updates)
   const [chatMessages, setChatMessages] = useState([]);
-  
+
   // Update local messages when React Query data changes
   useEffect(() => {
     if (messages && !isPending) {
@@ -49,7 +49,7 @@ const RoomChatFeed = () => {
     newSocket.on("receive_room_message", (data) => {
       // Update local state immediately for UI
       setChatMessages((prevMessages) => [...prevMessages, data]);
-      
+
       // Invalidate the query to refetch messages on next render
       // This ensures sync between server and local state
       queryClient.invalidateQueries({ queryKey: ["messages", roomId] });
@@ -105,7 +105,26 @@ const RoomChatFeed = () => {
       >
         {isPending ? (
           <div className="flex justify-center items-center h-full">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#9269FD]"></div>
+            <div className="flex items-center justify-center ">
+              <div className="text-center">
+                {/* Lottie Animation */}
+                {/* Alternatively, use an image */}
+                <img
+                  className="mx-auto"
+                  src="https://i.imgur.com/wAdNa6U.gif"
+                  alt="Hamster animation"
+                />
+                <h1 className="text-4xl text-white  font-bold mt-4">
+                  {`Kon'nichiwa!`}
+                </h1>
+                <p className="text-base mt-4 chat-text font-semibold">
+                  No chat availabe 
+                </p>
+                <h1 className="text-xl chat-text text-white font-bold ">
+                  Please join a room to start conversation
+                </h1>
+              </div>
+            </div>{" "}
           </div>
         ) : isError ? (
           <div className="text-center p-4 bg-red-100 text-red-800 rounded-md">
