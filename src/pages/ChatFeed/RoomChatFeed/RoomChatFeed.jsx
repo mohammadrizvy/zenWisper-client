@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Forward } from "lucide-react";
 import io from "socket.io-client";
 import { useLocation, useParams } from "react-router-dom";
+import axios from "axios";
 
 const RoomChatFeed = () => {
   const { roomId } = useParams();
@@ -31,6 +32,22 @@ const RoomChatFeed = () => {
     };
   }, [roomId]);
 
+  // Fetch room messages from backend when roomId changes
+  useEffect(() => {
+    if (!roomId) return;
+    const fetchMessages = async () => {
+      try {
+        const res = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/room/${roomId}`
+        );
+        setMessages(res.data || []);
+      } catch (err) {
+        console.error("Failed to fetch room messages:", err);
+      }
+    };
+    fetchMessages();
+  }, [roomId]);
+
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     if (currentMessage !== "" && socket) {
@@ -46,6 +63,7 @@ const RoomChatFeed = () => {
       };
 
       await socket.emit("send_room_message", groupMessageData);
+      console.log("Sending data ", groupMessageData);
       setCurrentMessage("");
     }
   };
@@ -62,8 +80,8 @@ const RoomChatFeed = () => {
           </h2>
         ) : (
           <h2 className="text-xl font-semibold mb-4 mt-4 bg-yellow-600/90 px-6 py-4 w-3/5 rounded-xl text-center mx-auto text-white shadow-md">
-            ⚠️ Please enter your{" "}
-            <span className="underline font-bold">Room Name</span> and{" "}
+            ⚠️ Please enter your
+            <span className="underline font-bold">Room Name</span> and
             <span className="underline font-bold">Room ID</span> to join your
             chat room.
           </h2>
@@ -81,7 +99,7 @@ const RoomChatFeed = () => {
           >
             <div className="chat-bubble">
               <p className="font-semibold">
-                {msg.author === username ? "You" : msg.author}{" "}
+                {msg.author === username ? "You" : msg.author}
                 <span className="text-xs text-gray-400 ml-2">({msg.time})</span>
               </p>
               <p className="mt-1">{msg.message}</p>
@@ -93,19 +111,21 @@ const RoomChatFeed = () => {
       {/* Input Section */}
       <form onSubmit={handleOnSubmit}>
         <div className="w-full gap-4 p-4 bg-gray-800 flex items-center">
-          {
-            roomId ? (<input
-            className="w-[90%] chat-text p-3 rounded-lg bg-gray-700 text-white focus:outline-none"
-            disabled={!roomId}
-            type="text"
-            placeholder="Write a message..."
-            value={currentMessage}
-            onChange={(event) => setCurrentMessage(event.target.value)}
-          />) : (
-            <h1 className="mx-auto p-5 rounded-md text-center bg-gray-900 ">Please join room to continue !</h1>
-          )
-          }
-          
+          {roomId ? (
+            <input
+              className="w-[90%] chat-text p-3 rounded-lg bg-gray-700 text-white focus:outline-none"
+              disabled={!roomId}
+              type="text"
+              placeholder="Write a message..."
+              value={currentMessage}
+              onChange={(event) => setCurrentMessage(event.target.value)}
+            />
+          ) : (
+            <h1 className="mx-auto p-5 rounded-md text-center bg-gray-900 ">
+              Please join room to continue !
+            </h1>
+          )}
+
           <button
             type="submit"
             disabled={!roomId}
