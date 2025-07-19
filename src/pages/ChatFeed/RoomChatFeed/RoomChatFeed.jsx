@@ -82,7 +82,7 @@ const RoomChatFeed = () => {
   return (
     <div className="custom-bg flex flex-col h-screen">
       {/* Header */}
-      <div className=" bg-gray-900 flex-none">
+      <div className=" bg-gray-900 flex-none border-b border-gray-700">
         {roomId ? (
           <h2 className="text-xl font-bold mb-4 mt-4  px-5 max-w-md w-full sm:w-2/6 rounded-lg text-center mx-auto text-white">
             Room Name: {roomName || "Unknown Room"} <br />

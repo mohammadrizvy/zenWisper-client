@@ -348,7 +348,7 @@ const Room = () => {
                 <input
                   value={roomId}
                   onChange={(event) => setRoomId(event.target.value)}
-                  type="text"
+                  type="number"
                   placeholder="Room ID (optional - will be generated if empty)"
                   className="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#9269FD]"
                 />
@@ -356,7 +356,7 @@ const Room = () => {
                 <input
                   value={roomId}
                   onChange={(event) => setRoomId(event.target.value)}
-                  type="text"
+                  type="number"
                   placeholder="Room ID"
                   className="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#9269FD]"
                 />
@@ -379,7 +379,7 @@ const Room = () => {
               {recentRooms.length > 0 && (
                 <div className="mt-6 pt-6 border-t border-gray-700">
                   <h3 className="text-lg text-white font-semibold mb-3">
-                    Recent Rooms
+                    Recent Room
                   </h3>
                   <div className="space-y-2">
                     {recentRooms.map((room, idx) => (
