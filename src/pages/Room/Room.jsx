@@ -199,12 +199,12 @@ const Room = () => {
     }
   };
 
-  const toggleMode = () => {
-    setIsCreating(!isCreating);
-    // Clear fields when switching modes
-    setRoomId("");
-    setRoomName("");
-  };
+  // const toggleMode = () => {
+  //   setIsCreating(!isCreating);
+  //   // Clear fields when switching modes
+  //   setRoomId("");
+  //   setRoomName("");
+  // };
 
   return (
     <div className=" flex items-center justify-center bg-gray-900 py-8">
