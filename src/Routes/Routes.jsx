@@ -84,7 +84,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "about",
+        path: "faq",
         element: <About />, // Public about page
       },
     ],
