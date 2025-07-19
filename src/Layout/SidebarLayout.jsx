@@ -51,4 +51,4 @@ const SidebarLayout = () => {
   );
 };
 
-export default SidebarLayout;``
+export default SidebarLayout;
