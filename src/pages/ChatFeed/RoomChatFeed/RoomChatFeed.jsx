@@ -82,14 +82,14 @@ const RoomChatFeed = () => {
   return (
     <div className="custom-bg flex flex-col h-screen">
       {/* Header */}
-      <div className="p-2 flex-none">
+      <div className=" bg-gray-900 flex-none">
         {roomId ? (
-          <h2 className="text-xl font-bold mb-4 mt-4 bg-gray-800 px-5 py-2 max-w-md w-full sm:w-2/6 rounded-lg text-center mx-auto text-white">
+          <h2 className="text-xl font-bold mb-4 mt-4  px-5 max-w-md w-full sm:w-2/6 rounded-lg text-center mx-auto text-white">
             Room Name: {roomName || "Unknown Room"} <br />
             Room Chat ID: {roomId}
           </h2>
         ) : (
-          <h2 className="text-xl font-semibold mb-4 mt-4 bg-yellow-600/90 px-6 py-4 max-w-xl w-full sm:w-3/5 rounded-xl text-center mx-auto text-white shadow-md">
+          <h2 className="text-xl font-semibold mb-4 mt-4  px-6  max-w-xl w-full sm:w-3/5 rounded-xl text-center mx-auto text-white shadow-md">
             ⚠️ Please enter your{" "}
             <span className="underline font-bold">Room Name</span> and{" "}
             <span className="underline font-bold">Room ID</span> to join your

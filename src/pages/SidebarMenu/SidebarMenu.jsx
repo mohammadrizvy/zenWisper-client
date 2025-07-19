@@ -23,7 +23,7 @@ const SidebarMenu = () => {
     <>
       <div className="h-screen hidden lg:flex flex-col justify-between px-3 bg-gray-800 text-white">
         <nav className="flex-1 px-4">
-          <ul className="space-y-10 ">
+          <ul className="space-y-10 cursor-pointer ">
             <li>
               <Link
                 to="/chat"
@@ -42,7 +42,7 @@ const SidebarMenu = () => {
               >
                 <FaDoorOpen className="w-8 h-8" />
               </Link>
-               <p className=" mt-2 text-center">Room</p>
+              <p className=" mt-2 text-center">Room</p>
             </li>
             <li>
               <Link
@@ -52,7 +52,7 @@ const SidebarMenu = () => {
               >
                 <FaUsers className="w-8 h-8" />
               </Link>
-               <p className="text-center mt-2">Friends</p>
+              <p className="text-center mt-2">Friends</p>
             </li>
             <li>
               <Link
@@ -62,7 +62,7 @@ const SidebarMenu = () => {
               >
                 <FaStar className="w-8 h-8" />
               </Link>
-               <p className="text-center mt-2">Favourite</p>
+              <p className="text-center mt-2">Favourite</p>
             </li>
             <li>
               <Link
@@ -72,7 +72,7 @@ const SidebarMenu = () => {
               >
                 <FaCog className="w-8 h-8" />
               </Link>
-               <p className="text-center mt-2">Setting</p>
+              <p className="text-center mt-2">Setting</p>
             </li>
             <li>
               <Link
@@ -82,13 +82,13 @@ const SidebarMenu = () => {
               >
                 <FaFileAlt className="w-8 h-8" />
               </Link>
-               <p className="text-center mt-2">FAQ</p>
+              <p className="text-center mt-2">FAQ</p>
             </li>
           </ul>
         </nav>
 
         <div className="mb-10 mx-auto">
-          <ul className="space-y-10">
+          <ul className="space-y-10 ">
             <li>
               <p
                 onClick={() => document.getElementById("profile").showModal()}
@@ -97,17 +97,16 @@ const SidebarMenu = () => {
               >
                 <FaUserCog className="w-8 h-8" />
               </p>
-                 <p className="text-center mt-2">Profile</p>
+              <p className="text-center mt-2">Profile</p>
             </li>
             <li className="">
               <p
                 onClick={handleLogOut}
                 data-tip="Logout"
                 className="flex tooltip tooltip-right cursor-pointer items-center justify-center space-x-3 text-gray-300 hover:text-white"
-              >
-              </p>
-                <FaShare className="w-8 h-8 cursor-pointer  rotate-180" />
-               <p className=" mt-2 text-center">Logout</p>
+              ></p>
+              <FaShare className="w-8 h-8 cursor-pointer  rotate-180" />
+              <p className=" mt-2 text-center">Logout</p>
             </li>
           </ul>
         </div>
