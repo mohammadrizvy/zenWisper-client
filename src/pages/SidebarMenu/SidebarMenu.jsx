@@ -23,60 +23,66 @@ const SidebarMenu = () => {
     <>
       <div className="h-screen hidden lg:flex flex-col justify-between px-3 bg-gray-800 text-white">
         <nav className="flex-1 px-4">
-          <ul className="space-y-10">
+          <ul className="space-y-10 ">
             <li>
               <Link
                 to="/chat"
                 data-tip="Chat"
-                className="flex tooltip tooltip-right mt-10 items-center space-x-3 text-gray-300 hover:text-white"
+                className="flex tooltip tooltip-right mt-10 items-center justify-center space-x-3 text-gray-300 hover:text-white"
               >
                 <FaMessage className="w-8 h-8" />
               </Link>
+              <p className="text-center mt-2">Chat</p>
             </li>
             <li>
               <Link
                 to="/room"
                 data-tip="Room"
-                className="flex tooltip tooltip-right items-center space-x-3 text-gray-300 hover:text-white"
+                className="flex tooltip tooltip-right items-center justify-center space-x-3 text-gray-300 hover:text-white"
               >
                 <FaDoorOpen className="w-8 h-8" />
               </Link>
+               <p className=" mt-2 text-center">Room</p>
             </li>
             <li>
               <Link
                 to="/friends"
                 data-tip="Friends"
-                className="flex tooltip tooltip-right items-center space-x-3 text-gray-300 hover:text-white"
+                className="flex tooltip tooltip-right items-center justify-center space-x-3 text-gray-300 hover:text-white"
               >
                 <FaUsers className="w-8 h-8" />
               </Link>
+               <p className="text-center mt-2">Friends</p>
             </li>
             <li>
               <Link
                 to="/"
                 data-tip="Favourites"
-                className="flex tooltip tooltip-right items-center space-x-3 text-gray-300 hover:text-white"
+                className="flex tooltip tooltip-right items-center justify-center space-x-3 text-gray-300 hover:text-white"
               >
                 <FaStar className="w-8 h-8" />
               </Link>
+               <p className="text-center mt-2">Favourite</p>
             </li>
             <li>
               <Link
                 to="/"
                 data-tip="Settings"
-                className="flex tooltip tooltip-right items-center space-x-3 text-gray-300 hover:text-white"
+                className="flex tooltip tooltip-right items-center justify-center space-x-3 text-gray-300 hover:text-white"
               >
                 <FaCog className="w-8 h-8" />
               </Link>
+               <p className="text-center mt-2">Setting</p>
             </li>
             <li>
               <Link
                 to="/faq"
                 data-tip="FAQ"
-                className="flex tooltip tooltip-right items-center space-x-3 text-gray-300 hover:text-white"
+                className="flex tooltip tooltip-right items-center justify-center space-x-3 text-gray-300 hover:text-white"
               >
                 <FaFileAlt className="w-8 h-8" />
               </Link>
+               <p className="text-center mt-2">FAQ</p>
             </li>
           </ul>
         </nav>
@@ -87,26 +93,28 @@ const SidebarMenu = () => {
               <p
                 onClick={() => document.getElementById("profile").showModal()}
                 data-tip="Profile"
-                className="flex tooltip tooltip-right items-center cursor-pointer space-x-3 text-gray-300 hover:text-white"
+                className="flex tooltip tooltip-right items-center cursor-pointer justify-center space-x-3 text-gray-300 hover:text-white"
               >
                 <FaUserCog className="w-8 h-8" />
               </p>
+                 <p className="text-center mt-2">Profile</p>
             </li>
-            <li>
+            <li className="">
               <p
                 onClick={handleLogOut}
                 data-tip="Logout"
-                className="flex tooltip tooltip-right cursor-pointer items-center space-x-3 text-gray-300 hover:text-white"
+                className="flex tooltip tooltip-right cursor-pointer items-center justify-center space-x-3 text-gray-300 hover:text-white"
               >
-                <FaShare className="w-8 h-8 rotate-180" />
               </p>
+                <FaShare className="w-8 h-8 cursor-pointer  rotate-180" />
+               <p className=" mt-2 text-center">Logout</p>
             </li>
           </ul>
         </div>
       </div>
 
       <dialog id="profile" className="modal">
-        <div className="modal-box w-full max-w-lg p-6 bg-gray-800 rounded-lg">
+        <div className="modal-box max-w-lg p-6 bg-gray-800 rounded-lg">
           {/* Profile Image Section */}
           <div className="flex flex-col items-center justify-center gap-4">
             <div className="relative">

@@ -27,7 +27,7 @@ const SidebarLayout = () => {
       {/* Main content area */}
       <div className="flex flex-grow">
         {/* Left section for additional content */}
-        <div className="w-1/5 p-4 border-r border-gray-700 overflow-auto">
+        <div className="w-2/5 p-4 border-r border-gray-700 overflow-auto">
           <div className="space-y-2">
             <Link to={"/"}>
               <img
@@ -51,4 +51,4 @@ const SidebarLayout = () => {
   );
 };
 
-export default SidebarLayout;
+export default SidebarLayout;``
