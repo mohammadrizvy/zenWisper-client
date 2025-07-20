@@ -103,10 +103,6 @@ const Room = () => {
       // Generate a unique room ID if not provided
       const newRoomId = roomId.trim() !== "" ? roomId : generateRoomId();
 
-      // Save to localStorage
-      localStorage.setItem("currentRoom", newRoomId);
-      localStorage.setItem("currentRoomName", roomName);
-
       // Connect socket and create room
       socket.emit("create_room", newRoomId, username);
       socket.emit("join_room", newRoomId, username);
@@ -142,10 +138,6 @@ const Room = () => {
   };
 
   const joinExistingRoom = (room) => {
-    // Save to localStorage
-    localStorage.setItem("currentRoom", room.id);
-    localStorage.setItem("currentRoomName", room.name);
-
     // Connect socket
     socket.emit("join_room", room.id, username);
 
@@ -170,13 +162,8 @@ const Room = () => {
       // Disconnect socket
       socket.emit("leave_room", currentRoom.id, username);
 
-      // Clear localStorage
-      localStorage.removeItem("currentRoom");
-      localStorage.removeItem("currentRoomName");
-
       // Reset state
       setCurrentRoom(null);
-      setOnlineUsers([]);
 
       navigate("/room");
       toast.success(`Left room: ${currentRoom.name}`);
@@ -199,13 +186,6 @@ const Room = () => {
       toast.success("Room ID copied to clipboard!");
     }
   };
-
-  // const toggleMode = () => {
-  //   setIsCreating(!isCreating);
-  //   // Clear fields when switching modes
-  //   setRoomId("");
-  //   setRoomName("");
-  // };
 
   return (
     <div className=" flex items-center justify-center bg-gray-900 py-8">
