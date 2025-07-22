@@ -1,13 +1,4 @@
 import { Link } from "react-router-dom";
-import {
-  FaCog,
-  FaDoorOpen,
-  FaFileAlt,
-  FaShare,
-  FaStar,
-  FaUserCog,
-  FaUsers,
-} from "react-icons/fa";
 
 const SidebarMenu = () => {
   const handleLogOut = () => {
@@ -20,21 +11,23 @@ const SidebarMenu = () => {
 
   return (
     <>
-      <div className="h-screen hidden lg:flex flex-col justify-between px-3 bg-[#18181C] text-white">
+      <div className="h-screen w-28 hidden lg:flex flex-col justify-between px-3 bg- text-white bg-zinc-900  border-r-2 border-zinc-600">
         <img
-          className="w-16 mt-5 mx-auto"
+          className="w-18 mt-5 mb-10 mx-auto"
           src="/public/ZenWhisper.ico"
           alt=""
         />
 
+        {/* User profile picture !  */}
         <img
-          className="w-12 rounded-full  border-blue-500 border-2 mx-auto mt-5 "
+          className="w-12  rounded-full  border-blue-500 border-2 mx-auto  "
           src="/public/exampleUserImage.png"
           alt=""
         />
+        <p className="text-xs text-center mt-2">Username</p>
 
         <nav className="flex-1 px-4">
-          <ul className="space-y-10 cursor-pointer ">
+          <ul className="space-y-2 cursor-pointer ">
             <li>
               <Link
                 to="/chat"
@@ -42,67 +35,82 @@ const SidebarMenu = () => {
                 className="flex tooltip tooltip-right mt-10 items-center justify-center space-x-3 text-gray-300 hover:text-white"
               >
                 <img
-                  className="w-16 mt-5 mx-auto"
+                  className="w-10 mt-5 mx-auto"
                   src="/public/chat.png"
                   alt=""
                 />
               </Link>
-              <p className="text-center mt-2">Chat</p>
+              <p className="text-center ">Chat</p>
             </li>
+            <hr />
             <li>
               <Link
                 to="/room"
                 data-tip="Room"
                 className="flex tooltip tooltip-right items-center justify-center space-x-3 text-gray-300 hover:text-white"
               >
-                <img className="w-16 mx-auto" src="/public/group.png" alt="" />
+                <img className="w-10 mx-auto" src="/public/group.png" alt="" />
               </Link>
-              <p className=" mt-2 text-center">Room</p>
+              <p className="  text-center">Room</p>
             </li>
+            <hr />
             <li>
               <Link
                 to="/"
                 data-tip="Favourites"
                 className="flex tooltip tooltip-right items-center justify-center space-x-3 text-gray-300 hover:text-white"
               >
-                <img className="w-16 mx-auto" src="/public/bookmark.png" alt="" />
+                <img
+                  className="w-10 mx-auto"
+                  src="/public/bookmark.png"
+                  alt=""
+                />
               </Link>
               <p className="text-center">Favourite</p>
             </li>
+          </ul>
+        </nav>
 
+        <div className="mb-10 mx-auto">
+          <ul className="space-y-2 ">
             <li>
               <Link
                 to="/faq"
                 data-tip="FAQ"
                 className="flex tooltip tooltip-right items-center justify-center space-x-3 text-gray-300 hover:text-white"
               >
-                <img className="w-16 mx-auto" src="/public/faq.png" alt="" />
+                <img className="w-10 mx-auto" src="/public/faq.png" alt="" />
               </Link>
               <p className="text-center">FAQ</p>
             </li>
-          </ul>
-        </nav>
-
-        <div className="mb-10 mx-auto">
-          <ul className="space-y-10 ">
-            <li>
+            <hr />
+            <li className=" ">
               <p
                 onClick={() => document.getElementById("profile").showModal()}
                 data-tip="Profile"
                 className="flex tooltip tooltip-right items-center cursor-pointer justify-center space-x-3 text-gray-300 hover:text-white"
               >
-                <FaUserCog className="w-8 h-8" />
+                <img
+                  className="w-10 mx-auto"
+                  src="/public/setting.png"
+                  alt=""
+                />
               </p>
-              <p className="text-center mt-2">Profile</p>
+              <p className="text-center ">Setting</p>
             </li>
+            <hr />
             <li className="">
               <p
                 onClick={handleLogOut}
                 data-tip="Logout"
                 className="flex tooltip tooltip-right cursor-pointer items-center justify-center space-x-3 text-gray-300 hover:text-white"
               ></p>
-             <img className="w-16 mx-auto rotate-[270deg] scale-x-[-1] " src="/public/logout.png" alt="" />
-              <p className=" mt-2 text-center">Logout</p>
+              <img
+                className="w-10 mx-auto rotate-[90deg] scale-x-[-1] "
+                src="/public/logout.png"
+                alt=""
+              />
+              <p className="  text-center">Logout</p>
             </li>
           </ul>
         </div>
