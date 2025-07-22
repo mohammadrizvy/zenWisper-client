@@ -1,31 +1,28 @@
 import { Link } from "react-router-dom";
 import useUsers from "../../hooks/useUsers";
-import {  PlusIcon } from "lucide-react";
 
 const ChatList = () => {
-  const { data: users = [],  isLoading } = useUsers();
+  const { data: users = [], isLoading } = useUsers();
 
   console.log(users);
 
-  if(isLoading){
-    return 
+  if (isLoading) {
+    return <> </>;
   }
-
 
   return (
     <div className="">
       {/* Chat List */}
-      <div className="flex justify-between ">
-        <h2 className="text-2xl font-semibold mb-4">Chats</h2>
-        <p className="flex cursor-pointer btn btn-sm bg-[#1F2937] items-center gap-2">
-          Create room <PlusIcon></PlusIcon>
-        </p>
+      <div className="flex mb- justify-between ">
+        <h2 className="text-6xl font-semibold uppercase mb-4 mx-auto">Chats</h2>
       </div>
+        <p className="border-2 rotate-[5deg]"></p>
+      
       {/* Search Input */}
       <input
         type="text"
         placeholder="Search chat"
-        className="w-full p-2 mb-4 rounded bg-gray-800 text-white"
+        className="w-full p-2 mb-4 mt-5 rounded bg-gray-800 text-white"
       />
 
       {/* Chat Items */}

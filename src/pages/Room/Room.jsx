@@ -33,7 +33,7 @@ const Room = () => {
       // Listen for online users updates
       socket.on("room_users_update", (users) => {
         setOnlineUsers(users);
-      });
+      }); 
     }
 
     // Load recent rooms from localStorage

@@ -2,6 +2,7 @@ import { Link, Outlet, Route, Routes, } from "react-router-dom";
 import FavouritedChatFeed from "../pages/ChatFeed/FriendChatFeed/FriendChatFeed";
 import RoomChatFeed from "../pages/ChatFeed/RoomChatFeed/RoomChatFeed";
 import Home from "../pages/Home/Home";
+import ChatFeed from "../pages/ChatFeed/ChatFeed/ChatFeed";
 
 const SidebarLayout = () => {
   // const location = useLocation();
@@ -27,7 +28,7 @@ const SidebarLayout = () => {
 
 
   return (
-    <div className="flex bg-gray-900 h-screen text-white">
+    <div className="flex  h-screen text-white">
       {/* Sidebar */}
 
       <div className="hidden lg:flex flex-col justify-between bg- bg-zinc-900 px-3 border-zinc-600 border-r-2 w-28 h-screen text-white">
@@ -219,18 +220,12 @@ const SidebarLayout = () => {
       </dialog>      
 
       {/* Main content area */}
-      <div className="flex flex-grow">
+      <div className="flex flex-grow bg-[#1B1C25] ">
         {/* Left section for additional content */}
-        <div className="p-4 border-gray-700 border-r w-2/5 overflow-auto">
+        <div className="p-4  border-gray-700 border-r w-2/5 overflow-auto">
           <div className="space-y-2">
-            <Link to={"/"}>
-              <img
-                className="mx-auto -mt-7 -mb-10 w-[55%]"
-                src="/ZenWhisper.png"
-                alt="Logo"
-              />
-            </Link>
-            <div className="py-5">
+           
+            <div className="py-5 ">
               <Outlet /> {/* This will render the content from child routes */}
             </div>
           </div>
@@ -238,13 +233,11 @@ const SidebarLayout = () => {
 
         {/* Dynamic Chat Content Area */}
         <div className="w-4/5">
-          {/* {renderChatFeed()} */}
            {/* Conditionally render chat feed */}
             <Routes>
+            <Route path="/chat/*" element={<ChatFeed />} />
             <Route path="/favourite/*" element={<FavouritedChatFeed />} />
             <Route path="/room/*" element={<RoomChatFeed />} />
-            {/* <Route path="/favourites/*" element={<FavouriteChatFeed />} /> */}
-            {/* <Route path="/random/*" element={<RandomChatFeed />} /> */}
             <Route path="/*" element={<Home />} />
           </Routes>
         </div>
