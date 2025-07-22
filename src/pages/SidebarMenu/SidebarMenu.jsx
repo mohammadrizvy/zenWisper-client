@@ -11,57 +11,61 @@ const SidebarMenu = () => {
 
   return (
     <>
-      <div className="h-screen w-28 hidden lg:flex flex-col justify-between px-3 bg- text-white bg-zinc-900  border-r-2 border-zinc-600">
-        <img
-          className="w-18 mt-5 mb-10 mx-auto"
-          src="/public/ZenWhisper.ico"
-          alt=""
-        />
+      <div className="hidden lg:flex flex-col justify-between bg- bg-zinc-900 px-3 border-zinc-600 border-r-2 w-28 h-screen text-white">
+        <Link to={"/"}>
+          <img
+            className="mx-auto mt-5 mb-10 w-18"
+            src="/public/ZenWhisper.ico"
+            alt=""
+          />
+        </Link>
 
         {/* User profile picture !  */}
-        <img
-          className="w-12  rounded-full  border-blue-500 border-2 mx-auto  "
-          src="/public/exampleUserImage.png"
-          alt=""
-        />
-        <p className="text-xs text-center mt-2">Username</p>
+        <div className="cursor-pointer">
+          <img
+            className="mx-auto border-2 border-blue-500 rounded-full w-12"
+            src="/public/exampleUserImage.png"
+            alt=""
+          />
+          <p className="mt-2 text-xs text-center">Username</p>
+        </div>
 
         <nav className="flex-1 px-4">
-          <ul className="space-y-2 cursor-pointer ">
+          <ul className="space-y-2 cursor-pointer">
             <li>
               <Link
                 to="/chat"
                 data-tip="Chat"
-                className="flex tooltip tooltip-right mt-10 items-center justify-center space-x-3 text-gray-300 hover:text-white"
+                className="tooltip-right flex justify-center items-center space-x-3 mt-10 text-gray-300 hover:text-white tooltip"
               >
                 <img
-                  className="w-10 mt-5 mx-auto"
+                  className="mx-auto mt-5 w-10"
                   src="/public/chat.png"
                   alt=""
                 />
               </Link>
-              <p className="text-center ">Chat</p>
+              <p className="text-center">Chat</p>
             </li>
             <hr />
             <li>
               <Link
                 to="/room"
                 data-tip="Room"
-                className="flex tooltip tooltip-right items-center justify-center space-x-3 text-gray-300 hover:text-white"
+                className="tooltip-right flex justify-center items-center space-x-3 text-gray-300 hover:text-white tooltip"
               >
-                <img className="w-10 mx-auto" src="/public/group.png" alt="" />
+                <img className="mx-auto w-10" src="/public/group.png" alt="" />
               </Link>
-              <p className="  text-center">Room</p>
+              <p className="text-center">Room</p>
             </li>
             <hr />
             <li>
               <Link
                 to="/"
                 data-tip="Favourites"
-                className="flex tooltip tooltip-right items-center justify-center space-x-3 text-gray-300 hover:text-white"
+                className="tooltip-right flex justify-center items-center space-x-3 text-gray-300 hover:text-white tooltip"
               >
                 <img
-                  className="w-10 mx-auto"
+                  className="mx-auto w-10"
                   src="/public/bookmark.png"
                   alt=""
                 />
@@ -71,15 +75,15 @@ const SidebarMenu = () => {
           </ul>
         </nav>
 
-        <div className="mb-10 mx-auto">
-          <ul className="space-y-2 ">
+        <div className="mx-auto mb-10">
+          <ul className="space-y-2">
             <li>
               <Link
                 to="/faq"
                 data-tip="FAQ"
-                className="flex tooltip tooltip-right items-center justify-center space-x-3 text-gray-300 hover:text-white"
+                className="tooltip-right flex justify-center items-center space-x-3 text-gray-300 hover:text-white tooltip"
               >
-                <img className="w-10 mx-auto" src="/public/faq.png" alt="" />
+                <img className="mx-auto w-10" src="/public/faq.png" alt="" />
               </Link>
               <p className="text-center">FAQ</p>
             </li>
@@ -88,53 +92,53 @@ const SidebarMenu = () => {
               <p
                 onClick={() => document.getElementById("profile").showModal()}
                 data-tip="Profile"
-                className="flex tooltip tooltip-right items-center cursor-pointer justify-center space-x-3 text-gray-300 hover:text-white"
+                className="tooltip-right flex justify-center items-center space-x-3 text-gray-300 hover:text-white cursor-pointer tooltip"
               >
                 <img
-                  className="w-10 mx-auto"
+                  className="mx-auto w-10"
                   src="/public/setting.png"
                   alt=""
                 />
               </p>
-              <p className="text-center ">Setting</p>
+              <p className="text-center">Setting</p>
             </li>
             <hr />
             <li className="">
               <p
                 onClick={handleLogOut}
                 data-tip="Logout"
-                className="flex tooltip tooltip-right cursor-pointer items-center justify-center space-x-3 text-gray-300 hover:text-white"
+                className="tooltip-right flex justify-center items-center space-x-3 text-gray-300 hover:text-white cursor-pointer tooltip"
               ></p>
               <img
-                className="w-10 mx-auto rotate-[90deg] scale-x-[-1] "
+                className="mx-auto w-10 rotate-[90deg] scale-x-[-1]"
                 src="/public/logout.png"
                 alt=""
               />
-              <p className="  text-center">Logout</p>
+              <p className="text-center">Logout</p>
             </li>
           </ul>
         </div>
       </div>
 
       <dialog id="profile" className="modal">
-        <div className="modal-box max-w-lg p-6 bg-gray-800 rounded-lg">
+        <div className="bg-gray-800 p-6 rounded-lg max-w-lg modal-box">
           {/* Profile Image Section */}
-          <div className="flex flex-col items-center justify-center gap-4">
+          <div className="flex flex-col justify-center items-center gap-4">
             <div className="relative">
               {/* Profile Image */}
               <img
                 src="https://cdn.hero.page/pfp/81c2b3b4-bc9b-4286-91fe-a974f3ca6ae5-mysterious-purple-haired-boy-stunning-purple-anime-pfp-boys-1.png" // Use default if no image
                 alt="Profile"
-                className="w-32 h-32 rounded-full object-cover shadow-lg border-4 border-purple-500"
+                className="shadow-lg border-4 border-purple-500 rounded-full w-32 h-32 object-cover"
               />
               {/* Edit Image Button */}
               <label
                 htmlFor="profileImage"
-                className="absolute bottom-2 right-2 bg-purple-500 text-white p-2 rounded-full cursor-pointer"
+                className="right-2 bottom-2 absolute bg-purple-500 p-2 rounded-full text-white cursor-pointer"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
+                  className="w-6 h-6"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -149,42 +153,42 @@ const SidebarMenu = () => {
               </label>
               <input id="profileImage" type="file" className="hidden" />
             </div>
-            <h3 className="font-bold text-2xl text-white">Edit Profile</h3>
+            <h3 className="font-bold text-white text-2xl">Edit Profile</h3>
           </div>
 
           {/* Form to Edit Username and Email */}
-          <form className="mt-6 space-y-6">
+          <form className="space-y-6 mt-6">
             {/* Username Field */}
             <div className="form-control">
-              <label className="label text-white">Username</label>
+              <label className="text-white label">Username</label>
               <input
                 type="text"
                 placeholder="Enter username"
-                className="input input-bordered w-full text-white"
+                className="input-bordered w-full text-white input"
                 value={username}
               />
             </div>
 
             {/* Email Field */}
             <div className="form-control">
-              <label className="label text-white">Email</label>
+              <label className="text-white label">Email</label>
               <input
                 type="email"
                 placeholder="Enter email"
-                className="input input-bordered w-full text-white"
+                className="input-bordered w-full text-white input"
                 value={email}
               />
             </div>
 
             {/* Save and Close Buttons */}
-            <div className="modal-action justify-end">
+            <div className="justify-end modal-action">
               <button
                 type="submit"
-                className="btn bg-purple-500 hover:bg-purple-700 text-white"
+                className="bg-purple-500 hover:bg-purple-700 text-white btn"
               >
                 Save Changes
               </button>
-              <button formMethod="dialog" className="btn btn-outline">
+              <button formMethod="dialog" className="btn-outline btn">
                 Close
               </button>
             </div>

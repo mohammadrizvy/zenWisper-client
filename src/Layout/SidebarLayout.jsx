@@ -9,7 +9,6 @@ const SidebarLayout = () => {
 
   // Determine which chat feed to display based on the current route
   const renderChatFeed = () => {
-
     if (location.pathname.includes("/room")) {
       return <RoomChatFeed />;
     } else if (location.pathname.includes("/friends")) {
@@ -27,11 +26,11 @@ const SidebarLayout = () => {
       {/* Main content area */}
       <div className="flex flex-grow">
         {/* Left section for additional content */}
-        <div className="w-2/5 p-4 border-r border-gray-700 overflow-auto">
+        <div className="p-4 border-gray-700 border-r w-2/5 overflow-auto">
           <div className="space-y-2">
             <Link to={"/"}>
               <img
-                className="w-[55%] -mt-7 -mb-10 mx-auto"
+                className="mx-auto -mt-7 -mb-10 w-[55%]"
                 src="/ZenWhisper.png"
                 alt="Logo"
               />
