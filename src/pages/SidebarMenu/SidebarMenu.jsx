@@ -8,7 +8,6 @@ import {
   FaUserCog,
   FaUsers,
 } from "react-icons/fa";
-import { FaMessage } from "react-icons/fa6";
 
 const SidebarMenu = () => {
   const handleLogOut = () => {
@@ -22,7 +21,18 @@ const SidebarMenu = () => {
   return (
     <>
       <div className="h-screen hidden lg:flex flex-col justify-between px-3 bg-[#18181C] text-white">
-        <img src="/public/ZenWhisper.ico" alt="" />
+        <img
+          className="w-16 mt-5 mx-auto"
+          src="/public/ZenWhisper.ico"
+          alt=""
+        />
+
+        <img
+          className="w-12 rounded-full  border-blue-500 border-2 mx-auto mt-5 "
+          src="/public/exampleUserImage.png"
+          alt=""
+        />
+
         <nav className="flex-1 px-4">
           <ul className="space-y-10 cursor-pointer ">
             <li>
@@ -31,7 +41,11 @@ const SidebarMenu = () => {
                 data-tip="Chat"
                 className="flex tooltip tooltip-right mt-10 items-center justify-center space-x-3 text-gray-300 hover:text-white"
               >
-                <FaMessage className="w-8 h-8" />
+                <img
+                  className="w-16 mt-5 mx-auto"
+                  src="/public/chat.png"
+                  alt=""
+                />
               </Link>
               <p className="text-center mt-2">Chat</p>
             </li>
@@ -41,19 +55,9 @@ const SidebarMenu = () => {
                 data-tip="Room"
                 className="flex tooltip tooltip-right items-center justify-center space-x-3 text-gray-300 hover:text-white"
               >
-                <FaDoorOpen className="w-8 h-8" />
+                <img className="w-16 mx-auto" src="/public/group.png" alt="" />
               </Link>
               <p className=" mt-2 text-center">Room</p>
-            </li>
-            <li>
-              <Link
-                to="/friends"
-                data-tip="Friends"
-                className="flex tooltip tooltip-right items-center justify-center space-x-3 text-gray-300 hover:text-white"
-              >
-                <FaUsers className="w-8 h-8" />
-              </Link>
-              <p className="text-center mt-2">Friends</p>
             </li>
             <li>
               <Link
@@ -61,29 +65,20 @@ const SidebarMenu = () => {
                 data-tip="Favourites"
                 className="flex tooltip tooltip-right items-center justify-center space-x-3 text-gray-300 hover:text-white"
               >
-                <FaStar className="w-8 h-8" />
+                <img className="w-16 mx-auto" src="/public/bookmark.png" alt="" />
               </Link>
-              <p className="text-center mt-2">Favourite</p>
+              <p className="text-center">Favourite</p>
             </li>
-            <li>
-              <Link
-                to="/"
-                data-tip="Settings"
-                className="flex tooltip tooltip-right items-center justify-center space-x-3 text-gray-300 hover:text-white"
-              >
-                <FaCog className="w-8 h-8" />
-              </Link>
-              <p className="text-center mt-2">Setting</p>
-            </li>
+
             <li>
               <Link
                 to="/faq"
                 data-tip="FAQ"
                 className="flex tooltip tooltip-right items-center justify-center space-x-3 text-gray-300 hover:text-white"
               >
-                <FaFileAlt className="w-8 h-8" />
+                <img className="w-16 mx-auto" src="/public/faq.png" alt="" />
               </Link>
-              <p className="text-center mt-2">FAQ</p>
+              <p className="text-center">FAQ</p>
             </li>
           </ul>
         </nav>
@@ -106,7 +101,7 @@ const SidebarMenu = () => {
                 data-tip="Logout"
                 className="flex tooltip tooltip-right cursor-pointer items-center justify-center space-x-3 text-gray-300 hover:text-white"
               ></p>
-              <FaShare className="w-8 h-8 cursor-pointer  rotate-180" />
+             <img className="w-16 mx-auto rotate-[270deg] scale-x-[-1] " src="/public/logout.png" alt="" />
               <p className=" mt-2 text-center">Logout</p>
             </li>
           </ul>
