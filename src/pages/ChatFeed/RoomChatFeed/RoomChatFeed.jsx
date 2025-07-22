@@ -4,7 +4,10 @@ import io from "socket.io-client";
 import { useLocation, useParams } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import useRoomMessage from "../../../hooks/useRoomMessage";
-import { DynamicChatHeaderConnected, DynamicChatHeaderNotConnected } from "./DynamicChatHeader/DynamicChatHeader";
+import {
+  DynamicChatHeaderConnected,
+  DynamicChatHeaderNotConnected,
+} from "./DynamicChatHeader/DynamicChatHeader";
 
 const RoomChatFeed = () => {
   const { roomId } = useParams();
@@ -89,9 +92,7 @@ const RoomChatFeed = () => {
             // Connected to room state
             <div className="flex flex-col items-center space-y-3">
               {/* Main Room Info Card */}
-             
-            <DynamicChatHeaderConnected roomId={roomId} roomName={roomName} />
-            
+              <DynamicChatHeaderConnected roomId={roomId} roomName={roomName} />
             </div>
           ) : (
             // Not connected state

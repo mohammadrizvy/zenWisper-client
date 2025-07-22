@@ -21,7 +21,8 @@ const SidebarMenu = () => {
 
   return (
     <>
-      <div className="h-screen hidden lg:flex flex-col justify-between px-3 bg-gray-800 text-white">
+      <div className="h-screen hidden lg:flex flex-col justify-between px-3 bg-[#18181C] text-white">
+        <img src="/public/ZenWhisper.ico" alt="" />
         <nav className="flex-1 px-4">
           <ul className="space-y-10 cursor-pointer ">
             <li>
