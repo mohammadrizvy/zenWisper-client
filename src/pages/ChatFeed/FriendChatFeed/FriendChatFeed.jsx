@@ -2,8 +2,8 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { Forward } from "lucide-react";
 
-const FriendChatFeed = () => {
-  const { friendId } = useParams(); // Get friend ID from URL params
+const FavouritedChatFeed = () => {
+  const { friendId: favId } = useParams(); // Get friend ID from URL params
   const [messages, setMessages] = useState([]);
   const [currentMessage, setCurrentMessage] = useState("");
 
@@ -23,7 +23,7 @@ const FriendChatFeed = () => {
     <div className="custom-bg min-h-screen flex flex-col justify-between">
       <div className="p-2">
         <h2 className="text-xl font-bold mb-4 mt-4 bg-gray-800 px-5 py-2 w-2/6 rounded-lg text-center mx-auto text-white">
-          Chat with Friend ID: {friendId} {/* Use friendId here */}
+          Chat with Friend ID: {favId} {/* Use friendId here */}
         </h2>
       </div>
 
@@ -67,4 +67,4 @@ const FriendChatFeed = () => {
   );
 };
 
-export default FriendChatFeed;
+export default FavouritedChatFeed;

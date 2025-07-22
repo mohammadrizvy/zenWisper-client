@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import SidebarLayout from "../Layout/SidebarLayout";
-import Friends from "../pages/Friends/Friends";
+// import Friends from "../pages/Friends/Friends";
 import ChatList from "../pages/ChatList/ChatList";
 import Favourite from "../pages/Favourite/Favourite";
 import About from "../pages/About/About";
@@ -9,7 +9,7 @@ import Signup from "../pages/Authentication/Signup";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import Room from "../pages/Room/Room";
 import RoomChatFeed from "../pages/ChatFeed/RoomChatFeed/RoomChatFeed";
-import FriendChatFeed from "../pages/ChatFeed/FriendChatFeed/FriendChatFeed";
+import FavouritedChatFeed from "../pages/ChatFeed/FriendChatFeed/FriendChatFeed";
 import ChatFeed from "../pages/ChatFeed/ChatFeed/ChatFeed";
 
 export const router = createBrowserRouter([
@@ -58,10 +58,10 @@ export const router = createBrowserRouter([
         ],
       },
       {
-        path: "friends",
+        path: "favourite",
         element: (
           <PrivateRoute>
-            <Friends /> {/* Friends List page */}
+            <Favourite /> {/* Friends List page */}
           </PrivateRoute>
         ),
         children: [
@@ -69,20 +69,13 @@ export const router = createBrowserRouter([
             path: ":friendId", // Friend chat feed with dynamic friend ID
             element: (
               <PrivateRoute>
-                <FriendChatFeed /> {/* Friend chat feed */}
+                <FavouritedChatFeed /> {/* Friend chat feed */}
               </PrivateRoute>
             ),
           },
         ],
       },
-      {
-        path: "favourite",
-        element: (
-          <PrivateRoute>
-            <Favourite /> {/* Favourite section */}
-          </PrivateRoute>
-        ),
-      },
+     
       {
         path: "faq",
         element: <About />, // Public about page
