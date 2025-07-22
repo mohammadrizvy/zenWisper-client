@@ -16,13 +16,21 @@ const ChatList = () => {
       <div className="flex mb- justify-between ">
         <h2 className="text-6xl font-semibold uppercase mb-4 mx-auto">Chats</h2>
       </div>
-        <p className="border-2 rotate-[5deg]"></p>
-      
+      <p className="border-2 mx-6 rotate-[4deg]"></p>
+
+      <div className="flex mx-auto mb-5 justify-center items-center mt-5">
+        <img className="w-8 " src="/yourroom.png" alt="" />
+        <h1 className=" text-neutral-600 text-xl font-extrabold">
+          YOUR CHAT LIST
+        </h1>
+      </div>
+      <hr />
+
       {/* Search Input */}
       <input
         type="text"
         placeholder="Search chat"
-        className="w-full p-2 mb-4 mt-5 rounded bg-gray-800 text-white"
+        className="w-full p-3 mb-4 mt-5 rounded-full bg-gray-800 text-white"
       />
 
       {/* Chat Items */}
@@ -31,19 +39,17 @@ const ChatList = () => {
         <Link
           to={`/chat/${user._id}`}
           key={index}
-          className="flex items-center p-3 mb-2 bg-gray-800 rounded"
+          className="flex items-center p-3 mb-2   border-b-2 border-neutral-600"
         >
           <img
             src="https://cdn.hero.page/pfp/81c2b3b4-bc9b-4286-91fe-a974f3ca6ae5-mysterious-purple-haired-boy-stunning-purple-anime-pfp-boys-1.png"
             alt="User Avatar"
-            className="w-8 h-8 rounded-full mr-2"
+            className="w-10 h-10 rounded-full mr-2"
           />
           <div className="flex-1">
             <p className="text-sm font-medium">{user.username}</p>
-            <p className="text-xs text-gray-400 chat-text">
-              Whats up, how are you?
-            </p>
           </div>
+          
         </Link>
       ))}
 
