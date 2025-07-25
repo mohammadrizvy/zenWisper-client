@@ -176,8 +176,8 @@ const RoomChatFeed = () => {
                 >
                   <div
                     className={`rounded-2xl px-4 py-2 shadow-md ${msg.author === username
-                        ? "bg-[#9269FD] text-white rounded-br-none"
-                        : "bg-gray-700 text-white rounded-bl-none"
+                      ? "bg-[#9269FD] text-white rounded-br-none"
+                      : "bg-gray-700 text-white rounded-bl-none"
                       } max-w-[75%] break-words`}
                   >
                     <p className="font-medium text-sm">
@@ -196,8 +196,12 @@ const RoomChatFeed = () => {
       </div>
 
       {/* Input Section - Fixed at bottom */}
-      <div className="flex-none w-full p-4 ">
-        <form onSubmit={handleOnSubmit} className="flex items-center">
+      <div className="flex items-center  p-4 ">
+        <img
+          src="/exampleUserImage.png" alt="User Avatar"
+          className="w-12 h-12 rounded-full mr-2"
+        />
+        <form onSubmit={handleOnSubmit} className="flex w-full items-center">
           {roomId ? (
             <input
               className="flex-grow p-3 rounded-lg bg-gray-700 text-white focus:outline-none"

@@ -35,7 +35,7 @@ const SidebarLayout = () => {
         <Link to={"/"}>
           <img
             className="mx-auto mt-5 mb-10 w-18"
-            src="/public/ZenWhisper.ico"
+            src="/ZenWhisper.ico"
             alt=""
           />
         </Link>
@@ -44,7 +44,7 @@ const SidebarLayout = () => {
         <div className="cursor-pointer">
           <img
             className="mx-auto border-2 border-blue-500 rounded-full w-12"
-            src="/public/exampleUserImage.png"
+            src="/exampleUserImage.png"
             alt=""
           />
           <p className="mt-2 text-xs text-center">Username</p>
@@ -60,7 +60,7 @@ const SidebarLayout = () => {
               >
                 <img
                   className="mx-auto mt-5 w-10"
-                  src="/public/chat.png"
+                  src="/chat.png"
                   alt=""
                 />
               </Link>
@@ -73,7 +73,7 @@ const SidebarLayout = () => {
                 data-tip="Room"
                 className="tooltip-right flex justify-center items-center space-x-3 text-gray-300 hover:text-white tooltip"
               >
-                <img className="mx-auto w-10" src="/public/group.png" alt="" />
+                <img className="mx-auto w-10" src="/group.png" alt="" />
               </Link>
               <p className="text-center">Room</p>
             </li>
@@ -86,7 +86,7 @@ const SidebarLayout = () => {
               >
                 <img
                   className="mx-auto w-10"
-                  src="/public/bookmark.png"
+                  src="/bookmark.png"
                   alt=""
                 />
               </Link>
@@ -103,7 +103,7 @@ const SidebarLayout = () => {
                 data-tip="FAQ"
                 className="tooltip-right flex justify-center items-center space-x-3 text-gray-300 hover:text-white tooltip"
               >
-                <img className="mx-auto w-10" src="/public/faq.png" alt="" />
+                <img className="mx-auto w-10" src="/faq.png" alt="" />
               </Link>
               <p className="text-center">FAQ</p>
             </li>
@@ -116,7 +116,7 @@ const SidebarLayout = () => {
               >
                 <img
                   className="mx-auto w-10"
-                  src="/public/setting.png"
+                  src="/setting.png"
                   alt=""
                 />
               </p>
@@ -131,7 +131,7 @@ const SidebarLayout = () => {
               ></p>
               <img
                 className="mx-auto w-10 rotate-[90deg] scale-x-[-1]"
-                src="/public/logout.png"
+                src="/logout.png"
                 alt=""
               />
               <p className="text-center">Logout</p>
