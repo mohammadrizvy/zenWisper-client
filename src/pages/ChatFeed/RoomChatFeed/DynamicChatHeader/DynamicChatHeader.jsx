@@ -8,27 +8,18 @@ export const DynamicChatHeaderConnected = ({ roomId, roomName }) => {
           <Inbox size={35}></Inbox>
         </div>
         <div>
-          <p className=" text-x">{roomName || "🧪 Chemistry Group"}</p>
+          <p className=" text-x">
+            {roomName || "🧪 Chemistry Group"} ({roomId})
+          </p>
           <p className="text-blue-500 text-xs ">22 Members . 12 Online</p>
         </div>
       </div>
-      <div
-      >
+      <div>
         <Info size={35}></Info>
       </div>
     </div>
   );
 };
-
-//   <div className="w-60 h-7   text-white text-xl ">
-//     {roomName || "🧪 Chemistry Group"}
-//   </div>
-//   <Inbox></Inbox>
-//   <div className="w-60 h-7 left-[102px] top-[64px] absolute justify-start text-blue-500 text-xs ">
-//     22 Members . 12 Online
-//   </div>
-//   <div className="w-10 h-10 left-[956px] top-[29px] absolute" />
-//  <Info></Info>
 
 export const DynamicChatHeaderNotConnected = () => {
   return (

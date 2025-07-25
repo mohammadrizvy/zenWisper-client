@@ -158,17 +158,25 @@ const Room = () => {
   };
 
   const leaveRoom = () => {
-    if (currentRoom) {
-      // Disconnect socket
-      socket.emit("leave_room", currentRoom.id, username);
+  if (currentRoom) {
+    // Disconnect socket
+    socket.emit("leave_room", currentRoom.id, username);
 
-      // Reset state
-      setCurrentRoom(null);
+    // Remove socket listeners
+    socket.off("room_users_update");
 
-      navigate("/room");
-      toast.success(`Left room: ${currentRoom.name}`);
-    }
-  };
+    // Clear localStorage data
+    localStorage.removeItem("currentRoom");
+    localStorage.removeItem("currentRoomName");
+
+    // Reset state
+    setCurrentRoom(null);
+    setOnlineUsers([]); // Also clear online users
+
+    navigate("/room");
+    toast.success(`Left room: ${currentRoom.name}`);
+  }
+};
 
   const continueToChat = () => {
     if (currentRoom) {
@@ -188,7 +196,7 @@ const Room = () => {
   };
 
   return (
-    <div className=" flex items-center justify-center bg-gray-900 py-8">
+    <div className=" flex items-center justify-center  py-8">
       <Toaster position="top-right" />
 
       <div className="p-8 shadow-lg w-full max-w-md  rounded-lg">
@@ -389,3 +397,4 @@ const Room = () => {
 };
 
 export default Room;
+  
