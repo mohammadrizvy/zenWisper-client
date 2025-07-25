@@ -75,7 +75,7 @@ export const router = createBrowserRouter([
           },
         ],
       },
-     
+
       {
         path: "faq",
         element: <About />, // Public about page
@@ -90,4 +90,8 @@ export const router = createBrowserRouter([
     path: "signup",
     element: <Signup />, // Public signup page
   },
+  // {
+  //   path: "app",
+  //   element: <App />, // Public signup page
+  // },
 ]);

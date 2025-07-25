@@ -57,15 +57,15 @@ const RoomChatFeed = () => {
       setChatMessages((prevMessages) => {
         // Check if message already exists to prevent duplicates
         const messageExists = prevMessages.some(
-          (msg) => msg.message === data.message && 
-                   msg.author === data.author && 
-                   msg.time === data.time
+          (msg) => msg.message === data.message &&
+            msg.author === data.author &&
+            msg.time === data.time
         );
-        
+
         if (messageExists) {
           return prevMessages;
         }
-        
+
         return [...prevMessages, data];
       });
     };
@@ -96,10 +96,10 @@ const RoomChatFeed = () => {
 
       // Send message via socket
       socket.emit("send_room_message", groupMessageData);
-      
+
       // Clear input immediately
       setCurrentMessage("");
-      
+
       // Optional: Add message to local state immediately for better UX
       // (Remove this if your backend sends the message back to all users including sender)
       setChatMessages((prevMessages) => [...prevMessages, groupMessageData]);
@@ -170,27 +170,24 @@ const RoomChatFeed = () => {
             ) : (
               chatMessages.map((msg, index) => (
                 <div
-                  key={`${msg.author}-${msg.time}-${index}`} // Better key for uniqueness
-                  className={`chat ${
-                    msg.author === username ? "chat-end" : "chat-start"
-                  }`}
+                  key={`${msg.author}-${msg.time}-${index}`}
+                  className={`flex w-full mb-3 ${msg.author === username ? "justify-end" : "justify-start"
+                    }`}
                 >
                   <div
-                    className={`chat-bubble ${
-                      msg.author === username
-                        ? "bg-[#9269FD] text-white"
-                        : "bg-gray-700 text-white"
-                    } max-w-[75%] break-words`}
+                    className={`rounded-2xl px-4 py-2 shadow-md ${msg.author === username
+                        ? "bg-[#9269FD] text-white rounded-br-none"
+                        : "bg-gray-700 text-white rounded-bl-none"
+                      } max-w-[75%] break-words`}
                   >
-                    <p className="font-semibold">
+                    <p className="font-medium text-sm">
                       {msg.author === username ? "You" : msg.author}
-                      <span className="text-xs text-gray-300 ml-2">
-                        ({msg.time})
-                      </span>
+                      <span className="text-xs text-gray-300 ml-2">({msg.time})</span>
                     </p>
-                    <p className="mt-1">{msg.message}</p>
+                    <p className="mt-1 text-base leading-relaxed">{msg.message}</p>
                   </div>
                 </div>
+
               ))
             )}
             <div ref={messagesEndRef} />
@@ -199,7 +196,7 @@ const RoomChatFeed = () => {
       </div>
 
       {/* Input Section - Fixed at bottom */}
-      <div className="flex-none w-full p-4 bg-gray-800">
+      <div className="flex-none w-full p-4 ">
         <form onSubmit={handleOnSubmit} className="flex items-center">
           {roomId ? (
             <input
