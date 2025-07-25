@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from "react";
 import { Forward } from "lucide-react";
 import io from "socket.io-client";
 import { useLocation, useParams } from "react-router-dom";
-import { useQueryClient } from "@tanstack/react-query";
 import useRoomMessage from "../../../hooks/useRoomMessage";
 import {
   DynamicChatHeaderConnected,
@@ -17,7 +16,7 @@ const RoomChatFeed = () => {
   const [currentMessage, setCurrentMessage] = useState("");
   const [socket, setSocket] = useState(null);
   const messagesEndRef = useRef(null);
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
 
   // Use React Query hook to fetch messages
   const { isPending, messages = [], isError } = useRoomMessage(roomId);
@@ -41,28 +40,45 @@ const RoomChatFeed = () => {
     scrollToBottom();
   }, [chatMessages]);
 
-  // Socket connection setup
+  // Socket connection setup - Fixed to prevent reconnections
   useEffect(() => {
+    if (!roomId) return;
+
     const newSocket = io.connect("http://localhost:5000/");
     setSocket(newSocket);
 
-    if (roomId) {
-      newSocket.emit("join_room", roomId);
-    }
+    // Join the room
+    newSocket.emit("join_room", roomId, username);
 
-    newSocket.on("receive_room_message", (data) => {
-      // Update local state immediately for UI
-      setChatMessages((prevMessages) => [...prevMessages, data]);
+    // Listen for incoming messages
+    const handleReceiveMessage = (data) => {
+      // Only add to local state, don't invalidate query immediately
+      // This prevents duplicate messages when you send a message
+      setChatMessages((prevMessages) => {
+        // Check if message already exists to prevent duplicates
+        const messageExists = prevMessages.some(
+          (msg) => msg.message === data.message && 
+                   msg.author === data.author && 
+                   msg.time === data.time
+        );
+        
+        if (messageExists) {
+          return prevMessages;
+        }
+        
+        return [...prevMessages, data];
+      });
+    };
 
-      // Invalidate the query to refetch messages on next render
-      // This ensures sync between server and local state
-      queryClient.invalidateQueries({ queryKey: ["messages", roomId] });
-    });
+    newSocket.on("receive_room_message", handleReceiveMessage);
 
+    // Cleanup function
     return () => {
+      newSocket.off("receive_room_message", handleReceiveMessage);
+      newSocket.emit("leave_room", roomId, username);
       newSocket.disconnect();
     };
-  }, [roomId, queryClient]);
+  }, [roomId, username]); // Removed queryClient from dependencies
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
@@ -78,10 +94,19 @@ const RoomChatFeed = () => {
           new Date(Date.now()).getMinutes().toString().padStart(2, "0"),
       };
 
-      await socket.emit("send_room_message", groupMessageData);
+      // Send message via socket
+      socket.emit("send_room_message", groupMessageData);
+      
+      // Clear input immediately
       setCurrentMessage("");
+      
+      // Optional: Add message to local state immediately for better UX
+      // (Remove this if your backend sends the message back to all users including sender)
+      setChatMessages((prevMessages) => [...prevMessages, groupMessageData]);
     }
   };
+
+  console.log(chatMessages)
 
   return (
     <div className="custom-bg flex flex-col h-screen">
@@ -145,7 +170,7 @@ const RoomChatFeed = () => {
             ) : (
               chatMessages.map((msg, index) => (
                 <div
-                  key={index}
+                  key={`${msg.author}-${msg.time}-${index}`} // Better key for uniqueness
                   className={`chat ${
                     msg.author === username ? "chat-end" : "chat-start"
                   }`}
