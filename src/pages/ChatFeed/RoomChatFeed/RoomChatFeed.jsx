@@ -86,11 +86,11 @@ const RoomChatFeed = () => {
   return (
     <div className="custom-bg flex flex-col h-screen">
       {/* Header */}
-      <div className="bg-gradient-to-r from-gray-900 to-gray-800 flex-none border-b border-gray-600 shadow-lg">
+      <div className="bg-gradient-to-r bg-[#1B1C25] flex-none border-b border-gray-600 shadow-lg">
         <div className="container mx-auto px-4 py-6">
           {roomId ? (
             // Connected to room state
-            <div className="flex flex-col items-center space-y-3">
+            <div className="flex flex-col  space-y-3">
               {/* Main Room Info Card */}
               <DynamicChatHeaderConnected roomId={roomId} roomName={roomName} />
             </div>

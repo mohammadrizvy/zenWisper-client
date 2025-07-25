@@ -1,32 +1,34 @@
-export const DynamicChatHeaderConnected = ({ roomId , roomName }) => {
+import { Inbox, Info } from "lucide-react";
+
+export const DynamicChatHeaderConnected = ({ roomId, roomName }) => {
   return (
-    <div>
-      <div className="bg-gradient-to-r from-[#9269FD] to-purple-600 rounded-xl px-6 py-4 shadow-lg transform hover:scale-105 transition-transform duration-200 max-w-2xl w-full">
-        <div className="text-center">
-          <div className="flex items-center justify-center mb-2">
-            <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse mr-2"></div>
-            <span className="text-sm font-medium text-white/90 uppercase tracking-wide">
-              Connected
-            </span>
-          </div>
-          <h1 className="text-xl md:text-2xl font-bold text-white mb-1">
-            {roomName || "Unknown Room"}
-          </h1>
-          <div className="flex items-center justify-center space-x-2 text-white/80">
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                fillRule="evenodd"
-                d="M18 8a6 6 0 01-7.743 5.743L10 14l-4 1 1-4 .257-.257A6 6 0 1118 8zm-2-4a2 2 0 11-4 0 2 2 0 014 0z"
-                clipRule="evenodd"
-              />
-            </svg>
-            <span className="text-sm font-mono">ID: {roomId}</span>
-          </div>
+    <div className="flex justify-between">
+      <div className="flex items-center gap-5">
+        <div className="">
+          <Inbox size={35}></Inbox>
         </div>
+        <div>
+          <p className=" text-x">{roomName || "🧪 Chemistry Group"}</p>
+          <p className="text-blue-500 text-xs ">22 Members . 12 Online</p>
+        </div>
+      </div>
+      <div
+      >
+        <Info size={35}></Info>
       </div>
     </div>
   );
 };
+
+//   <div className="w-60 h-7   text-white text-xl ">
+//     {roomName || "🧪 Chemistry Group"}
+//   </div>
+//   <Inbox></Inbox>
+//   <div className="w-60 h-7 left-[102px] top-[64px] absolute justify-start text-blue-500 text-xs ">
+//     22 Members . 12 Online
+//   </div>
+//   <div className="w-10 h-10 left-[956px] top-[29px] absolute" />
+//  <Info></Info>
 
 export const DynamicChatHeaderNotConnected = () => {
   return (

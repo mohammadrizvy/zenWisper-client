@@ -191,7 +191,7 @@ const Room = () => {
     <div className=" flex items-center justify-center bg-gray-900 py-8">
       <Toaster position="top-right" />
 
-      <div className="p-8 shadow-lg w-full max-w-md bg-gray-800 rounded-lg">
+      <div className="p-8 shadow-lg w-full max-w-md  rounded-lg">
         {currentRoom ? (
           // Already in a room view
           <>
