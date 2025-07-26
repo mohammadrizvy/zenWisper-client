@@ -1,6 +1,6 @@
+// src/Routes/Routes.jsx - Updated with proper private chat routing
 import { createBrowserRouter } from "react-router-dom";
 import SidebarLayout from "../Layout/SidebarLayout";
-// import Friends from "../pages/Friends/Friends";
 import ChatList from "../pages/ChatList/ChatList";
 import Favourite from "../pages/Favourite/Favourite";
 import About from "../pages/About/About";
@@ -36,12 +36,23 @@ export const router = createBrowserRouter([
             <ChatList /> {/* Chat List page */}
           </PrivateRoute>
         ),
-        children: [
-          {
-            path: ":id", // Dynamic chat feed based on ID
-            element: <ChatFeed />,
-          },
-        ],
+      },
+      {
+        path: "chat/:id", // This will handle private chats
+        element: (
+          <PrivateRoute>
+            <div className="flex w-full">
+              <div className="w-2/5 border-r border-gray-700">
+                <div className="p-4">
+                  <ChatList />
+                </div>
+              </div>
+              <div className="w-3/5">
+                <ChatFeed />
+              </div>
+            </div>
+          </PrivateRoute>
+        ),
       },
       {
         path: "room",
@@ -75,7 +86,6 @@ export const router = createBrowserRouter([
           },
         ],
       },
-
       {
         path: "faq",
         element: <About />, // Public about page
@@ -90,8 +100,4 @@ export const router = createBrowserRouter([
     path: "signup",
     element: <Signup />, // Public signup page
   },
-  // {
-  //   path: "app",
-  //   element: <App />, // Public signup page
-  // },
 ]);

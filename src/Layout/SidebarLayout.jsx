@@ -1,42 +1,47 @@
-import { Link, Outlet, Route, Routes, } from "react-router-dom";
+// src/Layout/SidebarLayout.jsx - Updated for private chat support
+import { Link, Outlet, Route, Routes, useLocation } from "react-router-dom";
 import FavouritedChatFeed from "../pages/ChatFeed/FriendChatFeed/FriendChatFeed";
 import RoomChatFeed from "../pages/ChatFeed/RoomChatFeed/RoomChatFeed";
 import Home from "../pages/Home/Home";
 import ChatFeed from "../pages/ChatFeed/ChatFeed/ChatFeed";
 import { Bookmark, MessageSquareMore, UsersRound, LibraryBig, UserCog, LogOut } from "lucide-react";
-const SidebarLayout = () => {
 
+const SidebarLayout = () => {
+  const location = useLocation();
 
   const handleLogOut = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    localStorage.removeItem("email");
     window.location.reload();
   };
 
   const username = localStorage.getItem("username");
   const email = localStorage.getItem("email");
 
+  // Check if we're in a private chat
+  const isPrivateChat = location.pathname.startsWith('/chat/') && location.pathname !== '/chat';
 
   return (
-    <div className="flex  h-screen text-white">
+    <div className="flex h-screen text-white">
       {/* Sidebar */}
-
-      <div className="hidden lg:flex flex-col justify-between bg- bg-zinc-900 px-3 border-zinc-600 border-r-2 w-28 h-screen text-white">
+      <div className="hidden lg:flex flex-col justify-between bg-zinc-900 px-3 border-zinc-600 border-r-2 w-28 h-screen text-white">
         <Link to={"/"}>
           <img
             className="mx-auto mt-5 mb-10 w-18"
             src="/ZenWhisper.ico"
-            alt=""
+            alt="ZenWhisper"
           />
         </Link>
 
-        {/* User profile picture !  */}
-        <div className="cursor-pointer">
+        {/* User profile picture */}
+        <div className="cursor-pointer" onClick={() => document.getElementById("profile").showModal()}>
           <img
             className="mx-auto border-2 border-blue-500 rounded-full w-12"
             src="/exampleUserImage.png"
-            alt=""
+            alt="User Avatar"
           />
-          <p className="mt-2 text-xs text-center">Username</p>
+          <p className="mt-2 text-xs text-center truncate">{username || "User"}</p>
         </div>
 
         <nav className="flex-1 px-4">
@@ -47,7 +52,7 @@ const SidebarLayout = () => {
                 data-tip="Chat"
                 className="tooltip-right flex justify-center items-center space-x-3 mt-10 text-gray-300 hover:text-white tooltip"
               >
-                < MessageSquareMore size={35} />
+                <MessageSquareMore size={35} />
               </Link>
               <p className="text-center mt-1">Chat</p>
             </li>
@@ -69,7 +74,6 @@ const SidebarLayout = () => {
                 data-tip="Favourites"
                 className="tooltip-right flex justify-center items-center space-x-3 text-gray-300 hover:text-white tooltip"
               >
-
                 <Bookmark size={30} />
               </Link>
               <p className="text-center mt-1">Favourite</p>
@@ -90,7 +94,7 @@ const SidebarLayout = () => {
               <p className="text-center mt-1">FAQ</p>
             </li>
             <hr />
-            <li className=" ">
+            <li>
               <p
                 onClick={() => document.getElementById("profile").showModal()}
                 data-tip="Profile"
@@ -105,26 +109,25 @@ const SidebarLayout = () => {
               <p
                 data-tip="Logout"
                 className="tooltip-right flex justify-center items-center space-x-3 text-gray-300 hover:text-white cursor-pointer tooltip"
-              ></p>
-              <LogOut className="mx-auto mb-1" size={30} />
-              <p className="text-center ">Logout</p>
+              >
+                <LogOut size={30} />
+              </p>
+              <p className="text-center mt-1">Logout</p>
             </li>
           </ul>
         </div>
       </div>
 
+      {/* Profile Modal */}
       <dialog id="profile" className="modal">
         <div className="bg-gray-800 p-6 rounded-lg max-w-lg modal-box">
-          {/* Profile Image Section */}
           <div className="flex flex-col justify-center items-center gap-4">
             <div className="relative">
-              {/* Profile Image */}
               <img
-                src="https://cdn.hero.page/pfp/81c2b3b4-bc9b-4286-91fe-a974f3ca6ae5-mysterious-purple-haired-boy-stunning-purple-anime-pfp-boys-1.png" // Use default if no image
+                src="https://cdn.hero.page/pfp/81c2b3b4-bc9b-4286-91fe-a974f3ca6ae5-mysterious-purple-haired-boy-stunning-purple-anime-pfp-boys-1.png"
                 alt="Profile"
                 className="shadow-lg border-4 border-purple-500 rounded-full w-32 h-32 object-cover"
               />
-              {/* Edit Image Button */}
               <label
                 htmlFor="profileImage"
                 className="right-2 bottom-2 absolute bg-purple-500 p-2 rounded-full text-white cursor-pointer"
@@ -149,39 +152,35 @@ const SidebarLayout = () => {
             <h3 className="font-bold text-white text-2xl">Edit Profile</h3>
           </div>
 
-          {/* Form to Edit Username and Email */}
           <form className="space-y-6 mt-6">
-            {/* Username Field */}
             <div className="form-control">
               <label className="text-white label">Username</label>
               <input
                 type="text"
                 placeholder="Enter username"
                 className="input-bordered w-full text-white input"
-                value={username}
+                defaultValue={username}
+                readOnly
               />
             </div>
 
-            {/* Email Field */}
             <div className="form-control">
               <label className="text-white label">Email</label>
               <input
                 type="email"
                 placeholder="Enter email"
                 className="input-bordered w-full text-white input"
-                value={email}
+                defaultValue={email}
+                readOnly
               />
             </div>
 
-            {/* Save and Close Buttons */}
             <div className="justify-end modal-action">
               <button
-                type="submit"
+                type="button"
                 className="bg-purple-500 hover:bg-purple-700 text-white btn"
+                onClick={() => document.getElementById("profile").close()}
               >
-                Save Changes
-              </button>
-              <button formMethod="dialog" className="btn-outline btn">
                 Close
               </button>
             </div>
@@ -193,27 +192,35 @@ const SidebarLayout = () => {
       </dialog>
 
       {/* Main content area */}
-      <div className="flex flex-grow bg-[#1B1C25] ">
-        {/* Left section for additional content */}
-        <div className="p-4  border-gray-700 border-r w-2/5 overflow-auto">
-          <div className="space-y-2">
-
-            <div className="py-5 ">
-              <Outlet /> {/* This will render the content from child routes */}
-            </div>
-          </div>
-        </div>
-
-        {/* Dynamic Chat Content Area */}
-        <div className="w-4/5">
-          {/* Conditionally render chat feed */}
+      <div className="flex flex-grow bg-[#1B1C25]">
+        {/* Conditional rendering based on route */}
+        {isPrivateChat ? (
+          // For private chat, show the chat interface directly
           <Routes>
-            <Route path="/chat/*" element={<ChatFeed />} />
-            <Route path="/favourite/*" element={<FavouritedChatFeed />} />
-            <Route path="/room/*" element={<RoomChatFeed />} />
-            <Route path="/*" element={<Home />} />
+            <Route path="/chat/:id" element={<ChatFeed />} />
           </Routes>
-        </div>
+        ) : (
+          <>
+            {/* Left section for additional content */}
+            <div className="p-4 border-gray-700 border-r w-2/5 overflow-auto">
+              <div className="space-y-2">
+                <div className="py-5">
+                  <Outlet />
+                </div>
+              </div>
+            </div>
+
+            {/* Dynamic Chat Content Area */}
+            <div className="w-3/5">
+              <Routes>
+                <Route path="/chat" element={<Home />} />
+                <Route path="/favourite/*" element={<FavouritedChatFeed />} />
+                <Route path="/room/*" element={<RoomChatFeed />} />
+                <Route path="/*" element={<Home />} />
+              </Routes>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
