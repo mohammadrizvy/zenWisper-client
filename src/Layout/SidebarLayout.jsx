@@ -3,20 +3,9 @@ import FavouritedChatFeed from "../pages/ChatFeed/FriendChatFeed/FriendChatFeed"
 import RoomChatFeed from "../pages/ChatFeed/RoomChatFeed/RoomChatFeed";
 import Home from "../pages/Home/Home";
 import ChatFeed from "../pages/ChatFeed/ChatFeed/ChatFeed";
-
+import { Bookmark, MessageSquareMore, UsersRound, LibraryBig, UserCog, LogOut } from "lucide-react";
 const SidebarLayout = () => {
-  // const location = useLocation();
 
-  // // Determine which chat feed to display based on the current route
-  // const renderChatFeed = () => {
-  //   if (location.pathname.includes("/room")) {
-  //     return <RoomChatFeed />;
-  //   } else if (location.pathname.includes("/favourite")) {
-  //     return <FavouritedChatFeed />;
-  //   }
-  //   // TODO : need to add more routes for (Favourite , and random chat)
-  //   return <Home></Home>; // Return null if neither route matches
-  // };
 
   const handleLogOut = () => {
     localStorage.removeItem("token");
@@ -58,13 +47,9 @@ const SidebarLayout = () => {
                 data-tip="Chat"
                 className="tooltip-right flex justify-center items-center space-x-3 mt-10 text-gray-300 hover:text-white tooltip"
               >
-                <img
-                  className="mx-auto mt-5 w-10"
-                  src="/chat.png"
-                  alt=""
-                />
+                < MessageSquareMore size={35} />
               </Link>
-              <p className="text-center">Chat</p>
+              <p className="text-center mt-1">Chat</p>
             </li>
             <hr />
             <li>
@@ -73,9 +58,9 @@ const SidebarLayout = () => {
                 data-tip="Room"
                 className="tooltip-right flex justify-center items-center space-x-3 text-gray-300 hover:text-white tooltip"
               >
-                <img className="mx-auto w-10" src="/group.png" alt="" />
+                <UsersRound size={30} />
               </Link>
-              <p className="text-center">Room</p>
+              <p className="text-center mt-1">Room</p>
             </li>
             <hr />
             <li>
@@ -84,13 +69,10 @@ const SidebarLayout = () => {
                 data-tip="Favourites"
                 className="tooltip-right flex justify-center items-center space-x-3 text-gray-300 hover:text-white tooltip"
               >
-                <img
-                  className="mx-auto w-10"
-                  src="/bookmark.png"
-                  alt=""
-                />
+
+                <Bookmark size={30} />
               </Link>
-              <p className="text-center">Favourite</p>
+              <p className="text-center mt-1">Favourite</p>
             </li>
           </ul>
         </nav>
@@ -103,9 +85,9 @@ const SidebarLayout = () => {
                 data-tip="FAQ"
                 className="tooltip-right flex justify-center items-center space-x-3 text-gray-300 hover:text-white tooltip"
               >
-                <img className="mx-auto w-10" src="/faq.png" alt="" />
+                <LibraryBig size={30} />
               </Link>
-              <p className="text-center">FAQ</p>
+              <p className="text-center mt-1">FAQ</p>
             </li>
             <hr />
             <li className=" ">
@@ -114,27 +96,18 @@ const SidebarLayout = () => {
                 data-tip="Profile"
                 className="tooltip-right flex justify-center items-center space-x-3 text-gray-300 hover:text-white cursor-pointer tooltip"
               >
-                <img
-                  className="mx-auto w-10"
-                  src="/setting.png"
-                  alt=""
-                />
+                <UserCog size={30} />
               </p>
-              <p className="text-center">Setting</p>
+              <p className="text-center mt-1">Setting</p>
             </li>
             <hr />
-            <li className="">
+            <li onClick={handleLogOut} className="cursor-pointer">
               <p
-                onClick={handleLogOut}
                 data-tip="Logout"
                 className="tooltip-right flex justify-center items-center space-x-3 text-gray-300 hover:text-white cursor-pointer tooltip"
               ></p>
-              <img
-                className="mx-auto w-10 rotate-[90deg] scale-x-[-1]"
-                src="/logout.png"
-                alt=""
-              />
-              <p className="text-center">Logout</p>
+              <LogOut className="mx-auto mb-1" size={30} />
+              <p className="text-center ">Logout</p>
             </li>
           </ul>
         </div>
@@ -217,14 +190,14 @@ const SidebarLayout = () => {
             Press ESC or click outside to close
           </p>
         </div>
-      </dialog>      
+      </dialog>
 
       {/* Main content area */}
       <div className="flex flex-grow bg-[#1B1C25] ">
         {/* Left section for additional content */}
         <div className="p-4  border-gray-700 border-r w-2/5 overflow-auto">
           <div className="space-y-2">
-           
+
             <div className="py-5 ">
               <Outlet /> {/* This will render the content from child routes */}
             </div>
@@ -233,8 +206,8 @@ const SidebarLayout = () => {
 
         {/* Dynamic Chat Content Area */}
         <div className="w-4/5">
-           {/* Conditionally render chat feed */}
-            <Routes>
+          {/* Conditionally render chat feed */}
+          <Routes>
             <Route path="/chat/*" element={<ChatFeed />} />
             <Route path="/favourite/*" element={<FavouritedChatFeed />} />
             <Route path="/room/*" element={<RoomChatFeed />} />
@@ -247,4 +220,3 @@ const SidebarLayout = () => {
 };
 
 export default SidebarLayout;
- 
