@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import useUsers from "../../hooks/useUsers";
+import { LayoutList } from "lucide-react";
 
 const ChatList = () => {
   const { data: users = [], isLoading } = useUsers();
@@ -18,8 +19,8 @@ const ChatList = () => {
       </div>
       <p className="border-2 mx-6 rotate-[4deg]"></p>
 
-      <div className="flex mx-auto mb-5 justify-center items-center mt-5">
-        <img className="w-8 " src="/yourroom.png" alt="" />
+      <div className="flex mx-auto mb-5 gap-2 justify-center items-center mt-5">
+       <LayoutList className="text-neutral-600 "/>
         <h1 className=" text-neutral-600 text-xl font-extrabold">
           YOUR CHAT LIST
         </h1>
