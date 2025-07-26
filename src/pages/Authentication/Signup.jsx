@@ -1,3 +1,4 @@
+// src/pages/Authentication/Signup.jsx - Fully Responsive Version
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
@@ -11,7 +12,7 @@ const Signup = () => {
     formState: { errors },
   } = useForm();
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     try {
@@ -21,9 +22,9 @@ const Signup = () => {
         data
       );
       console.log(response.data);
-      toast.success("Account created successfully")
-      navigate("/")
-      reset(); 
+      toast.success("Account created successfully");
+      navigate("/");
+      reset();
     } catch (error) {
       console.error("Error signing up:", error.response?.data || error.message);
       toast.error(`${error.response?.data.message}`);
@@ -31,19 +32,20 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex justify-center items-center custom-bg min-h-screen">
-      <Toaster/>
-      <div className="flex flex-col mx-auto bg-gray-700  justify-center items-center max-w-md p-6 rounded-md sm:p-10 text-white">
-        <div className="mb-8 text-center">
-          <h1 className="my-3 text-4xl font-bold">Sign up</h1>
-          <p className="text-sm text-gray-300">
+    <div className="flex justify-center items-center custom-bg min-h-screen px-4 sm:px-6 lg:px-8">
+      <Toaster />
+      <div className="flex flex-col mx-auto bg-gray-700 justify-center items-center w-full max-w-xs sm:max-w-sm md:max-w-md p-4 sm:p-6 lg:p-10 rounded-md text-white">
+        <div className="mb-6 sm:mb-8 text-center w-full">
+          <h1 className="my-3 text-2xl sm:text-3xl lg:text-4xl font-bold">Sign up</h1>
+          <p className="text-xs sm:text-sm text-gray-300">
             Create an account to get started
           </p>
         </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-12">
-          <div className="space-y-4">
+        
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 sm:space-y-12 w-full">
+          <div className="space-y-3 sm:space-y-4">
             <div>
-              <label htmlFor="username" className="block mb-2 text-sm">
+              <label htmlFor="username" className="block mb-2 text-xs sm:text-sm">
                 Username
               </label>
               <input
@@ -51,7 +53,7 @@ const Signup = () => {
                 name="username"
                 id="username"
                 placeholder="john_doe"
-                className="w-full px-3 py-2 border rounded-md border-gray-600 bg-black text-white"
+                className="w-full px-3 py-2 sm:py-2.5 border rounded-md border-gray-600 bg-black text-white text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#9269FD]"
                 {...register("username", { required: "Username is required" })}
               />
               {errors.username && (
@@ -60,8 +62,9 @@ const Signup = () => {
                 </p>
               )}
             </div>
+            
             <div>
-              <label htmlFor="email" className="block mb-2 text-sm">
+              <label htmlFor="email" className="block mb-2 text-xs sm:text-sm">
                 Email address
               </label>
               <input
@@ -69,7 +72,7 @@ const Signup = () => {
                 name="email"
                 id="email"
                 placeholder="john@example.com"
-                className="w-full px-3 py-2 border rounded-md border-gray-600 bg-black text-white"
+                className="w-full px-3 py-2 sm:py-2.5 border rounded-md border-gray-600 bg-black text-white text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#9269FD]"
                 {...register("email", { required: "Email is required" })}
               />
               {errors.email && (
@@ -78,8 +81,9 @@ const Signup = () => {
                 </p>
               )}
             </div>
+            
             <div>
-              <label htmlFor="password" className="block mb-2 text-sm">
+              <label htmlFor="password" className="block mb-2 text-xs sm:text-sm">
                 Password
               </label>
               <input
@@ -87,7 +91,7 @@ const Signup = () => {
                 name="password"
                 id="password"
                 placeholder="*****"
-                className="w-full px-3 py-2 border rounded-md border-gray-600 bg-black text-white"
+                className="w-full px-3 py-2 sm:py-2.5 border rounded-md border-gray-600 bg-black text-white text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#9269FD]"
                 {...register("password", {
                   required: "Password is required",
                   minLength: {
@@ -103,16 +107,17 @@ const Signup = () => {
               )}
             </div>
           </div>
+          
           <div className="space-y-2">
             <div>
               <button
                 type="submit"
-                className="w-full px-8 py-3 font-semibold rounded-md bg-[#9269FD] text-white"
+                className="w-full px-6 sm:px-8 py-2.5 sm:py-3 font-semibold rounded-md bg-[#9269FD] text-white hover:bg-[#7d4de7] transition-colors text-sm sm:text-base"
               >
                 Sign up
               </button>
             </div>
-            <p className="px-6 text-sm text-center text-gray-400">
+            <p className="px-4 sm:px-6 text-xs sm:text-sm text-center text-gray-400">
               Already have an account?
               <Link to="/login" className="hover:underline text-gray-300">
                 {" "}
