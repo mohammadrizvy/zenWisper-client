@@ -1,5 +1,5 @@
-// src/Layout/SidebarLayout.jsx - Updated for private chat support
-import { Link, Outlet, Route, Routes, useLocation } from "react-router-dom";
+// src/Layout/SidebarLayout.jsx - Fixed to match original pattern
+import { Link, Outlet, Route, Routes } from "react-router-dom";
 import FavouritedChatFeed from "../pages/ChatFeed/FriendChatFeed/FriendChatFeed";
 import RoomChatFeed from "../pages/ChatFeed/RoomChatFeed/RoomChatFeed";
 import Home from "../pages/Home/Home";
@@ -7,8 +7,6 @@ import ChatFeed from "../pages/ChatFeed/ChatFeed/ChatFeed";
 import { Bookmark, MessageSquareMore, UsersRound, LibraryBig, UserCog, LogOut } from "lucide-react";
 
 const SidebarLayout = () => {
-  const location = useLocation();
-
   const handleLogOut = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
@@ -18,9 +16,6 @@ const SidebarLayout = () => {
 
   const username = localStorage.getItem("username");
   const email = localStorage.getItem("email");
-
-  // Check if we're in a private chat
-  const isPrivateChat = location.pathname.startsWith('/chat/') && location.pathname !== '/chat';
 
   return (
     <div className="flex h-screen text-white">
@@ -191,36 +186,27 @@ const SidebarLayout = () => {
         </div>
       </dialog>
 
-      {/* Main content area */}
+      {/* Main content area - Same structure as original */}
       <div className="flex flex-grow bg-[#1B1C25]">
-        {/* Conditional rendering based on route */}
-        {isPrivateChat ? (
-          // For private chat, show the chat interface directly
-          <Routes>
-            <Route path="/chat/:id" element={<ChatFeed />} />
-          </Routes>
-        ) : (
-          <>
-            {/* Left section for additional content */}
-            <div className="p-4 border-gray-700 border-r w-2/5 overflow-auto">
-              <div className="space-y-2">
-                <div className="py-5">
-                  <Outlet />
-                </div>
-              </div>
+        {/* Left section for additional content */}
+        <div className="p-4 border-gray-700 border-r w-2/5 overflow-auto">
+          <div className="space-y-2">
+            <div className="py-5">
+              <Outlet /> {/* This will render the content from child routes */}
             </div>
+          </div>
+        </div>
 
-            {/* Dynamic Chat Content Area */}
-            <div className="w-3/5">
-              <Routes>
-                <Route path="/chat" element={<Home />} />
-                <Route path="/favourite/*" element={<FavouritedChatFeed />} />
-                <Route path="/room/*" element={<RoomChatFeed />} />
-                <Route path="/*" element={<Home />} />
-              </Routes>
-            </div>
-          </>
-        )}
+        {/* Dynamic Chat Content Area */}
+        <div className="w-3/5">
+          {/* Conditionally render chat feed */}
+          <Routes>
+            <Route path="/chat/*" element={<ChatFeed />} />
+            <Route path="/favourite/*" element={<FavouritedChatFeed />} />
+            <Route path="/room/*" element={<RoomChatFeed />} />
+            <Route path="/*" element={<Home />} />
+          </Routes>
+        </div>
       </div>
     </div>
   );

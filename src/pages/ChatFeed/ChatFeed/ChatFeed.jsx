@@ -1,14 +1,13 @@
-// src/pages/ChatFeed/ChatFeed/ChatFeed.jsx
+// src/pages/Chat​Feed/ChatFeed/ChatFeed.jsx
 import { useEffect, useState, useRef } from "react";
-import { Forward, ArrowLeft } from "lucide-react";
+import { Forward } from "lucide-react";
 import io from "socket.io-client";
-import { useParams, useLocation, useNavigate } from "react-router-dom";
+import {  useLocation } from "react-router-dom";
 import { usePrivateMessages } from "../../../hooks/usePrivateMessages";
 
 const ChatFeed = () => {
-    const { id: partnerId } = useParams();
+    // const { id: partnerId } = useParams();
     const location = useLocation();
-    const navigate = useNavigate();
     const { partnerUsername, partnerEmail } = location.state || {};
     
     const currentUserEmail = localStorage.getItem("email");
@@ -156,17 +155,20 @@ const ChatFeed = () => {
 
     if (!partnerEmail || !partnerUsername) {
         return (
-            <div className="flex items-center justify-center h-screen bg-gray-900">
+            <div className="flex items-center justify-center h-screen bg-[#1B1C25]">
                 <div className="text-center text-white">
-                    <h2 className="text-2xl font-bold mb-4">Invalid Chat</h2>
-                    <p className="mb-4">This chat session is invalid or expired.</p>
-                    <button
-                        onClick={() => navigate("/chat")}
-                        className="bg-[#9269FD] hover:bg-purple-600 px-4 py-2 rounded-md flex items-center gap-2 mx-auto"
-                    >
-                        <ArrowLeft size={18} />
-                        Back to Chats
-                    </button>
+                    <img
+                        className="mx-auto mb-4"
+                        src="https://i.imgur.com/wAdNa6U.gif"
+                        alt="Hamster animation"
+                    />
+                    <h1 className="text-4xl text-white font-bold mt-4">{`Kon'nichiwa!`}</h1>
+                    <p className="text-base mt-4 chat-text font-semibold">
+                        No chat available
+                    </p>
+                    <h1 className="text-xl chat-text text-white font-bold underline">
+                        Select a user to start conversation
+                    </h1>
                 </div>
             </div>
         );
@@ -177,31 +179,20 @@ const ChatFeed = () => {
             {/* Header */}
             <div className="bg-[#1B1C25] flex-none border-b border-gray-600 shadow-lg">
                 <div className="container mx-auto px-4 py-4">
-                    <div className="flex items-center justify-between">
-                        <button
-                            onClick={() => navigate("/chat")}
-                            className="lg:hidden text-white hover:text-gray-300"
-                        >
-                            <ArrowLeft size={24} />
-                        </button>
-                        
-                        <div className="flex items-center gap-4">
-                            <img
-                                src="https://cdn.hero.page/pfp/81c2b3b4-bc9b-4286-91fe-a974f3ca6ae5-mysterious-purple-haired-boy-stunning-purple-anime-pfp-boys-1.png"
-                                alt="Partner Avatar"
-                                className="w-12 h-12 rounded-full border-2 border-purple-500"
-                            />
-                            <div>
-                                <h2 className="text-xl font-semibold text-white">
-                                    {partnerUsername}
-                                </h2>
-                                <p className="text-sm text-gray-400">
-                                    {isTyping ? "typing..." : "online"}
-                                </p>
-                            </div>
+                    <div className="flex items-center gap-4">
+                        <img
+                            src="https://cdn.hero.page/pfp/81c2b3b4-bc9b-4286-91fe-a974f3ca6ae5-mysterious-purple-haired-boy-stunning-purple-anime-pfp-boys-1.png"
+                            alt="Partner Avatar"
+                            className="w-12 h-12 rounded-full border-2 border-purple-500"
+                        />
+                        <div>
+                            <h2 className="text-xl font-semibold text-white">
+                                {partnerUsername}
+                            </h2>
+                            <p className="text-sm text-gray-400">
+                                {isTyping ? "typing..." : "online"}
+                            </p>
                         </div>
-                        
-                        <div className="w-6"> {/* Spacer for centering */}</div>
                     </div>
                 </div>
             </div>

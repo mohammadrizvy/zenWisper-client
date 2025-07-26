@@ -8,7 +8,7 @@ import { useUserChats } from "../../hooks/usePrivateMessages";
 const ChatList = () => {
   const { data: users = [], isLoading: usersLoading } = useUsers();
   const currentUserEmail = localStorage.getItem("email");
-  const { chats = [], isPending: chatsLoading, refetch } = useUserChats(currentUserEmail);
+  const { chats = [], isPending: chatsLoading } = useUserChats(currentUserEmail);
   
   const [activeTab, setActiveTab] = useState("chats"); // "chats" or "users"
   const [searchTerm, setSearchTerm] = useState("");
