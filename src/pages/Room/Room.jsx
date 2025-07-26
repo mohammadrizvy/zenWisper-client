@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import io from "socket.io-client";
 import { LogOut, Copy, ArrowRight, Users, Plus } from "lucide-react";
 
-const socket = io.connect("http://localhost:5000/");
+const socket = io.connect(`${import.meta.env.VITE_BACKEND_URL}`);
 
 const Room = () => {
   const [roomName, setRoomName] = useState("");
@@ -339,7 +339,7 @@ const Room = () => {
                   <input
                     value={roomId}
                     onChange={(event) => setRoomId(event.target.value)}
-                    type="number"
+                    type=""
                     placeholder="Room ID (optional - will be generated if empty)"
                     className="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#9269FD]"
                   />
@@ -347,7 +347,7 @@ const Room = () => {
                   <input
                     value={roomId}
                     onChange={(event) => setRoomId(event.target.value)}
-                    type="number"
+                    type=""
                     placeholder="Room ID"
                     className="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#9269FD]"
                   />

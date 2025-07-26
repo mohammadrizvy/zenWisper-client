@@ -44,7 +44,7 @@ const RoomChatFeed = () => {
   useEffect(() => {
     if (!roomId) return;
 
-    const newSocket = io.connect("http://localhost:5000/");
+    const newSocket = io.connect(`${import.meta.env.VITE_BACKEND_URL}`);
     setSocket(newSocket);
 
     // Join the room
