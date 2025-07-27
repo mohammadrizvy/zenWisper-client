@@ -1,4 +1,4 @@
-// src/pages/ChatList/ChatList.jsx - Fully Responsive Version
+// src/pages/ChatList/ChatList.jsx - Complete Fixed Version
 import { Link } from "react-router-dom";
 import useUsers from "../../hooks/useUsers";
 import { MessageCircle, Plus } from "lucide-react";
@@ -47,6 +47,14 @@ const ChatList = () => {
         day: "numeric" 
       });
     }
+  };
+
+  // Helper function to get the correct route based on screen size
+  const getChatRoute = (email) => {
+    return {
+      mobile: `/mobile-chat/${email}`,
+      desktop: `/chat/${email}`
+    };
   };
 
   if (usersLoading) {
@@ -119,34 +127,65 @@ const ChatList = () => {
               </div>
             ) : (
               filteredChats.map((chat, index) => (
-                <Link
-                  to={`/chat/${chat.partnerEmail}`}
-                  state={{
-                    partnerUsername: chat.partnerUsername,
-                    partnerEmail: chat.partnerEmail
-                  }}
-                  key={index}
-                  className="flex items-center p-2 sm:p-3 mb-2 border-b-2 border-neutral-600 hover:bg-gray-800 transition-colors rounded-lg"
-                >
-                  <img
-                    src="https://cdn.hero.page/pfp/81c2b3b4-bc9b-4286-91fe-a974f3ca6ae5-mysterious-purple-haired-boy-stunning-purple-anime-pfp-boys-1.png"
-                    alt="User Avatar"
-                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full mr-2 sm:mr-3 border-2 border-purple-500 flex-shrink-0"
-                  />
-                  <div className="flex-1 min-w-0">
-                    <div className="flex justify-between items-start">
-                      <p className="text-base sm:text-lg font-medium text-white truncate pr-2">
-                        {chat.partnerUsername}
+                <div key={index}>
+                  {/* Mobile Link */}
+                  <Link
+                    to={getChatRoute(chat.partnerEmail).mobile}
+                    state={{
+                      partnerUsername: chat.partnerUsername,
+                      partnerEmail: chat.partnerEmail
+                    }}
+                    className="md:hidden flex items-center p-2 sm:p-3 mb-2 border-b-2 border-neutral-600 hover:bg-gray-800 transition-colors rounded-lg"
+                  >
+                    <img
+                      src="https://cdn.hero.page/pfp/81c2b3b4-bc9b-4286-91fe-a974f3ca6ae5-mysterious-purple-haired-boy-stunning-purple-anime-pfp-boys-1.png"
+                      alt="User Avatar"
+                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-full mr-2 sm:mr-3 border-2 border-purple-500 flex-shrink-0"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex justify-between items-start">
+                        <p className="text-base sm:text-lg font-medium text-white truncate pr-2">
+                          {chat.partnerUsername}
+                        </p>
+                        <span className="text-xs text-gray-400 flex-shrink-0">
+                          {formatTime(chat.lastMessageDate)}
+                        </span>
+                      </div>
+                      <p className="text-xs sm:text-sm text-gray-400 truncate mt-1">
+                        {chat.lastMessage}
                       </p>
-                      <span className="text-xs text-gray-400 flex-shrink-0">
-                        {formatTime(chat.lastMessageDate)}
-                      </span>
                     </div>
-                    <p className="text-xs sm:text-sm text-gray-400 truncate mt-1">
-                      {chat.lastMessage}
-                    </p>
-                  </div>
-                </Link>
+                  </Link>
+
+                  {/* Desktop Link */}
+                  <Link
+                    to={getChatRoute(chat.partnerEmail).desktop}
+                    state={{
+                      partnerUsername: chat.partnerUsername,
+                      partnerEmail: chat.partnerEmail
+                    }}
+                    className="hidden md:flex items-center p-2 sm:p-3 mb-2 border-b-2 border-neutral-600 hover:bg-gray-800 transition-colors rounded-lg"
+                  >
+                    <img
+                      src="https://cdn.hero.page/pfp/81c2b3b4-bc9b-4286-91fe-a974f3ca6ae5-mysterious-purple-haired-boy-stunning-purple-anime-pfp-boys-1.png"
+                      alt="User Avatar"
+                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-full mr-2 sm:mr-3 border-2 border-purple-500 flex-shrink-0"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex justify-between items-start">
+                        <p className="text-base sm:text-lg font-medium text-white truncate pr-2">
+                          {chat.partnerUsername}
+                        </p>
+                        <span className="text-xs text-gray-400 flex-shrink-0">
+                          {formatTime(chat.lastMessageDate)}
+                        </span>
+                      </div>
+                      <p className="text-xs sm:text-sm text-gray-400 truncate mt-1">
+                        {chat.lastMessage}
+                      </p>
+                    </div>
+                  </Link>
+                </div>
               ))
             )}
           </div>
@@ -158,32 +197,61 @@ const ChatList = () => {
               </div>
             ) : (
               filteredUsers.map((user, index) => (
-                <Link
-                  to={`/chat/${user.email}`}
-                  state={{
-                    partnerUsername: user.username,
-                    partnerEmail: user.email
-                  }}
-                  key={index}
-                  className="flex items-center p-2 sm:p-3 mb-2 border-b-2 border-neutral-600 hover:bg-gray-800 transition-colors rounded-lg"
-                >
-                  <img
-                    src="https://cdn.hero.page/pfp/81c2b3b4-bc9b-4286-91fe-a974f3ca6ae5-mysterious-purple-haired-boy-stunning-purple-anime-pfp-boys-1.png"
-                    alt="User Avatar"
-                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full mr-2 sm:mr-3 border-2 border-purple-500 flex-shrink-0"
-                  />
-                  <div className="flex-1 min-w-0">
-                    <p className="text-base sm:text-lg font-medium text-white truncate pr-2">
-                      {user.username}
-                    </p>
-                    <p className="text-xs sm:text-sm text-gray-400 truncate">
-                      {user.email}
-                    </p>
-                  </div>
-                  <div className="text-[#9269FD] flex-shrink-0">
-                    <MessageCircle size={18} className="sm:w-5 sm:h-5" />
-                  </div>
-                </Link>
+                <div key={index}>
+                  {/* Mobile Link */}
+                  <Link
+                    to={getChatRoute(user.email).mobile}
+                    state={{
+                      partnerUsername: user.username,
+                      partnerEmail: user.email
+                    }}
+                    className="md:hidden flex items-center p-2 sm:p-3 mb-2 border-b-2 border-neutral-600 hover:bg-gray-800 transition-colors rounded-lg"
+                  >
+                    <img
+                      src="https://cdn.hero.page/pfp/81c2b3b4-bc9b-4286-91fe-a974f3ca6ae5-mysterious-purple-haired-boy-stunning-purple-anime-pfp-boys-1.png"
+                      alt="User Avatar"
+                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-full mr-2 sm:mr-3 border-2 border-purple-500 flex-shrink-0"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-base sm:text-lg font-medium text-white truncate pr-2">
+                        {user.username}
+                      </p>
+                      <p className="text-xs sm:text-sm text-gray-400 truncate">
+                        {user.email}
+                      </p>
+                    </div>
+                    <div className="text-[#9269FD] flex-shrink-0">
+                      <MessageCircle size={18} className="sm:w-5 sm:h-5" />
+                    </div>
+                  </Link>
+
+                  {/* Desktop Link */}
+                  <Link
+                    to={getChatRoute(user.email).desktop}
+                    state={{
+                      partnerUsername: user.username,
+                      partnerEmail: user.email
+                    }}
+                    className="hidden md:flex items-center p-2 sm:p-3 mb-2 border-b-2 border-neutral-600 hover:bg-gray-800 transition-colors rounded-lg"
+                  >
+                    <img
+                      src="https://cdn.hero.page/pfp/81c2b3b4-bc9b-4286-91fe-a974f3ca6ae5-mysterious-purple-haired-boy-stunning-purple-anime-pfp-boys-1.png"
+                      alt="User Avatar"
+                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-full mr-2 sm:mr-3 border-2 border-purple-500 flex-shrink-0"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-base sm:text-lg font-medium text-white truncate pr-2">
+                        {user.username}
+                      </p>
+                      <p className="text-xs sm:text-sm text-gray-400 truncate">
+                        {user.email}
+                      </p>
+                    </div>
+                    <div className="text-[#9269FD] flex-shrink-0">
+                      <MessageCircle size={18} className="sm:w-5 sm:h-5" />
+                    </div>
+                  </Link>
+                </div>
               ))
             )}
           </div>

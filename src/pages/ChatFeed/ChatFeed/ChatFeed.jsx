@@ -214,7 +214,7 @@ const ChatFeed = () => {
                         >
                             <ArrowLeft size={24} />
                         </button>
-                        
+
                         <img
                             src="https://cdn.hero.page/pfp/81c2b3b4-bc9b-4286-91fe-a974f3ca6ae5-mysterious-purple-haired-boy-stunning-purple-anime-pfp-boys-1.png"
                             alt="Partner Avatar"
@@ -270,18 +270,16 @@ const ChatFeed = () => {
                             chatMessages.map((msg, index) => (
                                 <div
                                     key={`${msg.senderEmail}-${msg.time}-${index}`}
-                                    className={`flex w-full mb-2 sm:mb-3 ${
-                                        msg.senderEmail === currentUserEmail
-                                            ? "justify-end"
-                                            : "justify-start"
-                                    }`}
+                                    className={`flex w-full mb-2 sm:mb-3 ${msg.senderEmail === currentUserEmail
+                                        ? "justify-end"
+                                        : "justify-start"
+                                        }`}
                                 >
                                     <div
-                                        className={`rounded-xl sm:rounded-2xl px-3 sm:px-4 py-2 sm:py-3 shadow-md ${
-                                            msg.senderEmail === currentUserEmail
-                                                ? "bg-[#9269FD] text-white rounded-br-none"
-                                                : "bg-gray-700 text-white rounded-bl-none"
-                                        } max-w-[85%] sm:max-w-[75%] break-words`}
+                                        className={`rounded-xl sm:rounded-2xl px-3 sm:px-4 py-2 sm:py-3 shadow-md ${msg.senderEmail === currentUserEmail
+                                            ? "bg-[#9269FD] text-white rounded-br-none"
+                                            : "bg-gray-700 text-white rounded-bl-none"
+                                            } max-w-[85%] sm:max-w-[75%] break-words`}
                                     >
                                         <p className="text-sm sm:text-base leading-relaxed mb-1">
                                             {msg.message}
@@ -298,8 +296,8 @@ const ChatFeed = () => {
                                 <div className="bg-gray-700 text-white rounded-xl sm:rounded-2xl rounded-bl-none px-3 sm:px-4 py-2 sm:py-3 max-w-[75%]">
                                     <div className="flex space-x-1">
                                         <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                                        <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                                     </div>
                                 </div>
                             </div>

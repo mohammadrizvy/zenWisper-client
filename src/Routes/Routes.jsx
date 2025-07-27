@@ -1,4 +1,4 @@
-// src/Routes/Routes.jsx - Updated for Mobile Navigation
+// src/Routes/Routes.jsx - Fixed for Desktop 3-Column Layout
 import { createBrowserRouter } from "react-router-dom";
 import SidebarLayout from "../Layout/SidebarLayout";
 import ChatList from "../pages/ChatList/ChatList";
@@ -10,7 +10,7 @@ import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import Room from "../pages/Room/Room";
 import RoomChatFeed from "../pages/ChatFeed/RoomChatFeed/RoomChatFeed";
 import FavouritedChatFeed from "../pages/ChatFeed/FriendChatFeed/FriendChatFeed";
-import ChatFeed from "../pages/ChatFeed/ChatFeed/ChatFeed";
+import ChatFeedWrapper from "./ChatFeedWrapper";
 
 export const router = createBrowserRouter([
   {
@@ -36,14 +36,20 @@ export const router = createBrowserRouter([
             <ChatList />
           </PrivateRoute>
         ),
+        children: [
+          {
+            path: ":id",
+            element: <ChatFeedWrapper />
+          }
+        ]
       },
-      // Mobile-specific route for individual chats
+      // Mobile-specific route for individual chats (only shows on mobile)
       {
-        path: "chat/:id",
+        path: "mobile-chat/:id",
         element: (
           <PrivateRoute>
             <div className="md:hidden w-full h-screen">
-              <ChatFeed />
+              <ChatFeedWrapper />
             </div>
           </PrivateRoute>
         ),
@@ -55,10 +61,16 @@ export const router = createBrowserRouter([
             <Room />
           </PrivateRoute>
         ),
+        children: [
+          {
+            path: ":roomId",
+            element: <RoomChatFeed />
+          }
+        ]
       },
       // Mobile-specific route for room chats
       {
-        path: "room/:roomId",
+        path: "mobile-room/:roomId",
         element: (
           <PrivateRoute>
             <div className="md:hidden w-full h-screen">
@@ -74,13 +86,19 @@ export const router = createBrowserRouter([
             <Favourite />
           </PrivateRoute>
         ),
+        children: [
+          {
+            path: ":friendId",
+            element: <FavouritedChatFeed />
+          }
+        ]
       },
       // Mobile-specific route for favourite chats
       {
-        path: "favourite/:friendId",
+        path: "mobile-favourite/:friendId",
         element: (
           <PrivateRoute>
-            <div className=" w-full h-screen">
+            <div className="md:hidden w-full h-screen">
               <FavouritedChatFeed />
             </div>
           </PrivateRoute>

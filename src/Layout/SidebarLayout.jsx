@@ -1,10 +1,10 @@
-// src/Layout/SidebarLayout.jsx - Fully Responsive Version
-import { Link, Outlet, Route, Routes } from "react-router-dom";
+// src/Layout/SidebarLayout.jsx - Fixed for Desktop 3-Column Layout
+import { Link, Outlet, useLocation } from "react-router-dom";
 import { useState } from "react";
 import FavouritedChatFeed from "../pages/ChatFeed/FriendChatFeed/FriendChatFeed";
 import RoomChatFeed from "../pages/ChatFeed/RoomChatFeed/RoomChatFeed";
 import Home from "../pages/Home/Home";
-import ChatFeed from "../pages/ChatFeed/ChatFeed/ChatFeed";
+import ChatFeedWrapper from "../Routes/ChatFeedWrapper";
 import { 
   Bookmark, 
   MessageSquareMore, 
@@ -18,6 +18,7 @@ import {
 
 const SidebarLayout = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   const handleLogOut = () => {
     localStorage.removeItem("token");
@@ -35,6 +36,25 @@ const SidebarLayout = () => {
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
+  };
+
+  // Helper function to determine what to show in the right panel
+  const getRightPanelContent = () => {
+    const pathname = location.pathname;
+    
+    if (pathname.startsWith('/chat/') && pathname !== '/chat') {
+      // Show chat feed for desktop, but check if it's a specific chat
+      const chatId = pathname.split('/chat/')[1];
+      if (chatId) {
+        return <ChatFeedWrapper />;
+      }
+    } else if (pathname.startsWith('/room/') && pathname !== '/room') {
+      return <RoomChatFeed />;
+    } else if (pathname.startsWith('/favourite/') && pathname !== '/favourite') {
+      return <FavouritedChatFeed />;
+    }
+    
+    return <Home />;
   };
 
   return (
@@ -178,7 +198,7 @@ const SidebarLayout = () => {
             />
             <div>
               <p className="font-medium">{username || "User"}</p>
-              <p className="text-sm text-gray-400">{email || "user@example.com"}</p>
+              <p className="text-xs text-gray-400">{email || "user@example.com"}</p>
             </div>
           </div>
 
@@ -345,12 +365,7 @@ const SidebarLayout = () => {
 
         {/* Dynamic Chat Content Area - Hidden on mobile when in list view */}
         <div className="hidden md:block w-3/5">
-          <Routes>
-            <Route path="/chat/*" element={<ChatFeed />} />
-            <Route path="/favourite/*" element={<FavouritedChatFeed />} />
-            <Route path="/room/*" element={<RoomChatFeed />} />
-            <Route path="/*" element={<Home />} />
-          </Routes>
+          {getRightPanelContent()}
         </div>
       </div>
     </div>

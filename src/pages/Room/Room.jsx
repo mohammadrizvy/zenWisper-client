@@ -1,4 +1,4 @@
-// src/pages/Room/Room.jsx - Fully Responsive Version
+// src/pages/Room/Room.jsx - Fully Responsive Version with Mobile Routing
 import { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +16,13 @@ const Room = () => {
   const [isCreating, setIsCreating] = useState(false);
   const navigate = useNavigate();
   const username = localStorage.getItem("username");
+
+  // Helper function to get the correct route based on screen size
+  const getRoomRoute = (roomId) => {
+    // Check if screen is mobile size (similar to ChatList logic)
+    const isMobile = window.innerWidth < 768; // md breakpoint
+    return isMobile ? `/mobile-room/${roomId}` : `/room/${roomId}`;
+  };
 
   // Check for active room in localStorage on component mount
   useEffect(() => {
@@ -81,7 +88,7 @@ const Room = () => {
         name: roomName,
       });
 
-      navigate(`/room/${roomId}`, {
+      navigate(getRoomRoute(roomId), {
         state: {
           roomName,
         },
@@ -110,7 +117,7 @@ const Room = () => {
         name: roomName,
       });
 
-      navigate(`/room/${newRoomId}`, {
+      navigate(getRoomRoute(newRoomId), {
         state: {
           roomName,
         },
@@ -132,7 +139,7 @@ const Room = () => {
     setCurrentRoom(room);
     addToRecentRooms(room);
 
-    navigate(`/room/${room.id}`, {
+    navigate(getRoomRoute(room.id), {
       state: {
         roomName: room.name,
       },
@@ -159,7 +166,7 @@ const Room = () => {
 
   const continueToChat = () => {
     if (currentRoom) {
-      navigate(`/room/${currentRoom.id}`, {
+      navigate(getRoomRoute(currentRoom.id), {
         state: {
           roomName: currentRoom.name,
         },
