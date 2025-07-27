@@ -355,7 +355,7 @@ const SidebarLayout = () => {
       {/* Main content area - Responsive */}
       <div className="flex flex-grow bg-[#1B1C25] pt-16 lg:pt-0">
         {/* Left section for additional content - Responsive */}
-        <div className="w-full md:w-2/5 lg:w-2/5 xl:w-2/5 p-2 sm:p-4 border-gray-700 md:border-r overflow-auto">
+        <div className="w-full md:w-2/5 lg:w-2/5 xl:w-1/5 p-2 sm:p-4 border-gray-700 md:border-r overflow-auto">
           <div className="space-y-2">
             <div className="py-2 sm:py-5">
               <Outlet />
@@ -364,7 +364,7 @@ const SidebarLayout = () => {
         </div>
 
         {/* Dynamic Chat Content Area - Hidden on mobile when in list view */}
-        <div className="hidden md:block w-3/5">
+        <div className="hidden md:block w-3/5 xl:w-4/5">
           {getRightPanelContent()}
         </div>
       </div>
