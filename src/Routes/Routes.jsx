@@ -1,4 +1,4 @@
-// src/Routes/Routes.jsx - Updated for Mobile Navigation
+// src/Routes/Routes.jsx - FINAL SOLUTION for 3-Layer Structure
 import { createBrowserRouter } from "react-router-dom";
 import SidebarLayout from "../Layout/SidebarLayout";
 import ChatList from "../pages/ChatList/ChatList";
@@ -8,9 +8,6 @@ import Login from "../pages/Authentication/Login";
 import Signup from "../pages/Authentication/Signup";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import Room from "../pages/Room/Room";
-import RoomChatFeed from "../pages/ChatFeed/RoomChatFeed/RoomChatFeed";
-import FavouritedChatFeed from "../pages/ChatFeed/FriendChatFeed/FriendChatFeed";
-import ChatFeed from "../pages/ChatFeed/ChatFeed/ChatFeed";
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +18,7 @@ export const router = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
+      // Default route
       {
         path: "/",
         element: (
@@ -29,69 +27,65 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      // Chat routes - Layer 2 and Layer 3
       {
         path: "chat",
         element: (
           <PrivateRoute>
-            <ChatList />
+            <ChatList /> {/* This always shows on the left */}
           </PrivateRoute>
         ),
       },
-      // Mobile-specific route for individual chats
       {
-        path: "chat/:id",
+        path: "chat/:id", // This shows ChatList on left + ChatFeed on right (desktop)
         element: (
           <PrivateRoute>
-            <div className="md:hidden w-full h-screen">
-              <ChatFeed />
-            </div>
+            <ChatList /> {/* Left panel - always shows */}
           </PrivateRoute>
         ),
       },
+      // Room routes - Layer 2 and Layer 3  
       {
         path: "room",
         element: (
           <PrivateRoute>
-            <Room />
+            <Room /> {/* This always shows on the left */}
           </PrivateRoute>
         ),
       },
-      // Mobile-specific route for room chats
       {
-        path: "room/:roomId",
+        path: "room/:roomId", // This shows Room on left + RoomChatFeed on right (desktop)
         element: (
           <PrivateRoute>
-            <div className="md:hidden w-full h-screen">
-              <RoomChatFeed />
-            </div>     
+            <Room /> {/* Left panel - always shows */}
           </PrivateRoute>
         ),
       },
+      // Favourite routes - Layer 2 and Layer 3
       {
         path: "favourite",
         element: (
           <PrivateRoute>
-            <Favourite />
+            <Favourite /> {/* This always shows on the left */}
           </PrivateRoute>
         ),
       },
-      // Mobile-specific route for favourite chats
       {
-        path: "favourite/:friendId",
+        path: "favourite/:friendId", // This shows Favourite on left + FavouritedChatFeed on right (desktop)
         element: (
           <PrivateRoute>
-            <div className="md:hidden w-full h-screen">
-              <FavouritedChatFeed />
-            </div>
+            <Favourite /> {/* Left panel - always shows */}
           </PrivateRoute>
         ),
       },
+      // FAQ route
       {
         path: "faq",
         element: <About />,
       },
     ],
   },
+  // Authentication routes
   {
     path: "login",
     element: <Login />,
