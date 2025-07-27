@@ -332,23 +332,23 @@ const SidebarLayout = () => {
         </div>
       </dialog>
 
-      {/* Main content area - Fixed 3-Layer Structure */}
+      {/* Main content area - Responsive */}
       <div className="flex flex-grow bg-[#1B1C25] pt-16 lg:pt-0">
-        {/* Layer 2: Left section for lists (Chat List, Room List, etc.) */}
+        {/* Left section for additional content - Responsive */}
         <div className="w-full md:w-2/5 lg:w-2/5 xl:w-2/5 p-2 sm:p-4 border-gray-700 md:border-r overflow-auto">
           <div className="space-y-2">
             <div className="py-2 sm:py-5">
-              <Outlet /> {/* This renders ChatList, Room, Favourite components */}
+              <Outlet />
             </div>
           </div>
         </div>
 
-        {/* Layer 3: Right section for detail views (Chat Feed, Room Chat, etc.) */}
+        {/* Dynamic Chat Content Area - Hidden on mobile when in list view */}
         <div className="hidden md:block w-3/5">
           <Routes>
-            <Route path="/chat/:id" element={<ChatFeed />} />
-            <Route path="/favourite/:friendId" element={<FavouritedChatFeed />} />
-            <Route path="/room/:roomId" element={<RoomChatFeed />} />
+            <Route path="/chat/*" element={<ChatFeed />} />
+            <Route path="/favourite/*" element={<FavouritedChatFeed />} />
+            <Route path="/room/*" element={<RoomChatFeed />} />
             <Route path="/*" element={<Home />} />
           </Routes>
         </div>
