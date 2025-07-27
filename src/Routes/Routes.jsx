@@ -1,4 +1,4 @@
-// src/Routes/Routes.jsx - Fixed to match room chat pattern
+// src/Routes/Routes.jsx - Updated with proper private chat routing
 import { createBrowserRouter } from "react-router-dom";
 import SidebarLayout from "../Layout/SidebarLayout";
 import ChatList from "../pages/ChatList/ChatList";
@@ -36,12 +36,16 @@ export const router = createBrowserRouter([
             <ChatList /> {/* Chat List page */}
           </PrivateRoute>
         ),
-        children: [
-          {
-            path: ":id", // Private chat feed with dynamic user ID
-            element: <ChatFeed />,
-          },
-        ],
+      },
+      {
+        path: "chat/:id", // This will handle private chats
+        element: (
+          <PrivateRoute>
+           
+                <ChatFeed />
+           
+          </PrivateRoute>
+        ),
       },
       {
         path: "room",
@@ -52,7 +56,7 @@ export const router = createBrowserRouter([
         ),
         children: [
           {
-            path: ":roomId", // Room chat feed with dynamic room ID
+            path: "room/roomId", // Room chat feed with dynamic room ID
             element: <RoomChatFeed />,
           },
         ],

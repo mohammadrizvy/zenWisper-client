@@ -104,6 +104,8 @@ const Signup = () => {
                 <p className="text-red-500 text-xs mt-1">
                   {errors.password.message}
                 </p>
+
+                
               )}
             </div>
           </div>
