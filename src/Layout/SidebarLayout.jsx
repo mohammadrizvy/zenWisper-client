@@ -191,8 +191,9 @@ const SidebarLayout = () => {
         {/* Left section for additional content */}
         <div className="p-4 border-gray-700 border-r w-2/5 overflow-auto">
           <div className="space-y-2">
+              {/* This will render the content from child routes */}
+               <Outlet />
             <div className="py-5">
-              <Outlet /> {/* This will render the content from child routes */}
             </div>
           </div>
         </div>

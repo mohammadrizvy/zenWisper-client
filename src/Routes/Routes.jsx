@@ -1,4 +1,4 @@
-// src/Routes/Routes.jsx - Updated with proper private chat routing
+// src/Routes/Routes.jsx - Updated for Mobile Navigation
 import { createBrowserRouter } from "react-router-dom";
 import SidebarLayout from "../Layout/SidebarLayout";
 import ChatList from "../pages/ChatList/ChatList";
@@ -25,7 +25,7 @@ export const router = createBrowserRouter([
         path: "/",
         element: (
           <PrivateRoute>
-            <ChatList /> {/* Default landing page */}
+            <ChatList />
           </PrivateRoute>
         ),
       },
@@ -33,17 +33,18 @@ export const router = createBrowserRouter([
         path: "chat",
         element: (
           <PrivateRoute>
-            <ChatList /> {/* Chat List page */}
+            <ChatList />
           </PrivateRoute>
         ),
       },
+      // Mobile-specific route for individual chats
       {
-        path: "chat/:id", // This will handle private chats
+        path: "chat/:id",
         element: (
           <PrivateRoute>
-           
-                <ChatFeed />
-           
+            <div className="md:hidden w-full h-screen">
+              <ChatFeed />
+            </div>
           </PrivateRoute>
         ),
       },
@@ -51,46 +52,52 @@ export const router = createBrowserRouter([
         path: "room",
         element: (
           <PrivateRoute>
-            <Room /> {/* Room List page */}
+            <Room />
           </PrivateRoute>
         ),
-        children: [
-          {
-            path: "room/roomId", // Room chat feed with dynamic room ID
-            element: <RoomChatFeed />,
-          },
-        ],
+      },
+      // Mobile-specific route for room chats
+      {
+        path: "room/:roomId",
+        element: (
+          <PrivateRoute>
+            <div className="md:hidden w-full h-screen">
+              <RoomChatFeed />
+            </div>     
+          </PrivateRoute>
+        ),
       },
       {
         path: "favourite",
         element: (
           <PrivateRoute>
-            <Favourite /> {/* Friends List page */}
+            <Favourite />
           </PrivateRoute>
         ),
-        children: [
-          {
-            path: ":friendId", // Friend chat feed with dynamic friend ID
-            element: (
-              <PrivateRoute>
-                <FavouritedChatFeed /> {/* Friend chat feed */}
-              </PrivateRoute>
-            ),
-          },
-        ],
+      },
+      // Mobile-specific route for favourite chats
+      {
+        path: "favourite/:friendId",
+        element: (
+          <PrivateRoute>
+            <div className="md:hidden w-full h-screen">
+              <FavouritedChatFeed />
+            </div>
+          </PrivateRoute>
+        ),
       },
       {
         path: "faq",
-        element: <About />, // Public about page
+        element: <About />,
       },
     ],
   },
   {
     path: "login",
-    element: <Login />, // Public login page
+    element: <Login />,
   },
   {
     path: "signup",
-    element: <Signup />, // Public signup page
+    element: <Signup />,
   },
 ]);
