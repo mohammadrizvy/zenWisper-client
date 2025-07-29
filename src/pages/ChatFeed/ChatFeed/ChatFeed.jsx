@@ -202,7 +202,7 @@ const ChatFeed = () => {
     }
 
     return (
-        <div className="custom-bg flex flex-col h-screen">
+        <div className=" flex flex-col h-screen">
             {/* Header - Responsive */}
             <div className="bg-[#1B1C25] flex-none border-b border-gray-600 shadow-lg">
                 <div className="container mx-auto px-2 sm:px-4 py-3 sm:py-4">
