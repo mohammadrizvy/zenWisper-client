@@ -15,7 +15,7 @@ import {
   Menu,
   X
 } from "lucide-react";
-// rkerjrejruigugguujtrshshttsdgdzgzdfgdzfgzd
+// rkerjrejruigugguujtrshshttsdgdzgzdfgdzfgzdvhhvkjvkjvkjhkjhh
 
 const SidebarLayout = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
